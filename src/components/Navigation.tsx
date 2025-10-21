@@ -9,8 +9,8 @@ const Navigation = () => {
   const navItems = [
     { name: "About", path: "/about" },
     { name: "Projects", path: "/projects" },
-    { name: "Generative AI", path: "/ai" },
     { name: "Blogs", path: "/blogs" },
+    { name: "Generative AI", path: "/ai" },
     { name: "Contact", path: "/contact" },
   ];
 
