@@ -70,7 +70,7 @@ const Home = () => {
           exit={{ opacity: 0, y: -20 }}
           className="text-center max-w-4xl glass-panel p-12 rounded-lg"
         >
-          <h2 className="text-4xl md:text-6xl font-orbitron mb-6 gradient-text">
+          <h2 className="text-4xl md:text-6xl font-orbitron mb-6 gradient-text" style={{ lineHeight: '1.8' }}>
             {scenes[currentScene].title}
           </h2>
           <p className="text-xl md:text-2xl text-foreground mb-4 font-rajdhani">

@@ -51,15 +51,15 @@ const Blogs = () => {
   return (
     <div className="min-h-screen">
       <Navigation />
-      <div className="container mx-auto px-6 pt-32 pb-20">
+      <div className="container mx-auto px-6 pt-[calc(4rem+10vh)] pb-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <h1 className="text-5xl md:text-7xl font-playfair mb-12 text-center gradient-text leading-normal">
+          <h1 className="text-5xl md:text-7xl font-playfair mb-12 text-center gradient-text" style={{ lineHeight: '1.6' }}>
             Blog & Insights
           </h1>
-          <p></p>
+
           <p className="text-lg text-center text-muted-foreground mb-16 max-w-3xl mx-auto pt-3 leading-relaxed">
             Thoughts on AI development, system architecture, and building intelligent applications from first principles.
           </p>

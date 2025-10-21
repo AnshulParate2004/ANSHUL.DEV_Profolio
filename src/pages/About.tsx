@@ -87,7 +87,7 @@ const About = () => {
           </div>
 
           {/* Skills Visualization Section */}
-          <h2 className="text-4xl md:text-5xl font-playfair mb-12 gradient-text text-center leading-normal">
+          <h2 className="text-4xl md:text-5xl font-playfair mb-12 gradient-text text-center" style={{ lineHeight: '1.8' }}>
             Skills & Technologies
           </h2>
           

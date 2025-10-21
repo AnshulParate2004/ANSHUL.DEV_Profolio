@@ -23,7 +23,7 @@ const Navigation = () => {
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="text-2xl font-playfair font-bold gradient-text">
-            Anshul.ai
+            ap
           </Link>
 
           <div className="hidden md:flex gap-8 items-center">
