@@ -1,15 +1,16 @@
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
+import { ThemeToggle } from "./ThemeToggle";
+import { SearchDialog } from "./SearchDialog";
 
 const Navigation = () => {
   const location = useLocation();
 
   const navItems = [
-    { name: "Home", path: "/" },
     { name: "About", path: "/about" },
-    { name: "Skills", path: "/skills" },
     { name: "Projects", path: "/projects" },
     { name: "Generative AI", path: "/ai" },
+    { name: "Blogs", path: "/blogs" },
     { name: "Contact", path: "/contact" },
   ];
 
@@ -21,11 +22,11 @@ const Navigation = () => {
     >
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <Link to="/" className="text-2xl font-orbitron font-bold gradient-text">
-            ANSHUL.DEV
+          <Link to="/" className="text-2xl font-playfair font-bold gradient-text">
+            Anshul.ai
           </Link>
 
-          <div className="hidden md:flex gap-8">
+          <div className="hidden md:flex gap-8 items-center">
             {navItems.map((item) => (
               <Link
                 key={item.path}
@@ -46,6 +47,8 @@ const Navigation = () => {
                 )}
               </Link>
             ))}
+            <SearchDialog />
+            <ThemeToggle />
           </div>
         </div>
       </div>

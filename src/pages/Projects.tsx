@@ -39,7 +39,7 @@ const Projects = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <h1 className="text-5xl md:text-7xl font-orbitron mb-8 gradient-text">
+          <h1 className="text-5xl md:text-7xl font-playfair mb-12 gradient-text leading-normal">
             Featured Projects
           </h1>
           

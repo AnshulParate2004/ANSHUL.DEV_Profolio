@@ -8,75 +8,113 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Core Colors - Cyberpunk Futuristic Theme */
-    --background: 252 71% 4%;
-    --foreground: 180 100% 95%;
+    /* Light Mode - Pure Black & White */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
 
-    --card: 252 40% 8%;
-    --card-foreground: 180 100% 95%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
 
-    --popover: 252 50% 6%;
-    --popover-foreground: 180 100% 95%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
 
-    /* Electric Purple Primary */
-    --primary: 271 76% 53%;
+    --primary: 0 0% 0%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 271 100% 65%;
+    --primary-glow: 0 0% 20%;
 
-    /* Cyan Accent */
-    --secondary: 180 100% 50%;
-    --secondary-foreground: 252 71% 4%;
-    --secondary-glow: 180 100% 70%;
+    --secondary: 0 0% 20%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-glow: 0 0% 40%;
 
-    --muted: 252 30% 15%;
-    --muted-foreground: 180 20% 65%;
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 40%;
 
-    --accent: 271 76% 53%;
+    --accent: 0 0% 95%;
+    --accent-foreground: 0 0% 0%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 0%;
+
+    --radius: 0.75rem;
+
+    --gradient-primary: linear-gradient(135deg, hsl(0, 0%, 0%), hsl(0, 0%, 30%));
+    --gradient-glow: radial-gradient(circle, hsl(0, 0%, 20%) 0%, transparent 70%);
+    --gradient-card: linear-gradient(135deg, hsl(0, 0%, 100%) 0%, hsl(0, 0%, 98%) 100%);
+    
+    --shadow-neon-purple: 0 0 15px hsl(0, 0%, 0% / 0.1);
+    --shadow-neon-cyan: 0 0 15px hsl(0, 0%, 0% / 0.1);
+    --shadow-elegant: 0 4px 20px -4px hsl(0, 0%, 0% / 0.1);
+    
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    /* Dark Mode - Pure Black & White */
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+
+    --card: 0 0% 5%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
+    --primary-glow: 0 0% 80%;
+
+    --secondary: 0 0% 80%;
+    --secondary-foreground: 0 0% 0%;
+    --secondary-glow: 0 0% 60%;
+
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 0 0% 10%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 252 40% 20%;
-    --input: 252 40% 15%;
-    --ring: 271 76% 53%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 0 0% 100%;
 
-    --radius: 0.75rem;
-
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(271, 76%, 53%), hsl(180, 100%, 50%));
-    --gradient-glow: radial-gradient(circle, hsl(271, 100%, 65%) 0%, transparent 70%);
-    --gradient-card: linear-gradient(135deg, hsl(252, 40%, 8%) 0%, hsl(252, 50%, 12%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(0, 0%, 100%), hsl(0, 0%, 70%));
+    --gradient-glow: radial-gradient(circle, hsl(0, 0%, 80%) 0%, transparent 70%);
+    --gradient-card: linear-gradient(135deg, hsl(0, 0%, 5%) 0%, hsl(0, 0%, 8%) 100%);
     
-    /* Shadows & Glows */
-    --shadow-neon-purple: 0 0 20px hsl(271, 76%, 53% / 0.5), 0 0 40px hsl(271, 76%, 53% / 0.3);
-    --shadow-neon-cyan: 0 0 20px hsl(180, 100%, 50% / 0.5), 0 0 40px hsl(180, 100%, 50% / 0.3);
-    --shadow-elegant: 0 10px 50px -10px hsl(271, 76%, 53% / 0.4);
-    
-    /* Transitions */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --shadow-neon-purple: 0 0 15px hsl(0, 0%, 100% / 0.15);
+    --shadow-neon-cyan: 0 0 15px hsl(0, 0%, 100% / 0.15);
+    --shadow-elegant: 0 4px 20px -4px hsl(0, 0%, 0% / 0.5);
   }
 }
 
 @layer base {
   * {
     @apply border-border;
+    transition: none !important;
   }
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Inter', sans-serif;
     overflow-x: hidden;
+    transition: none !important;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
   }
 }
 
 @layer utilities {
-  /* Neon Text Effects */
+  /* Text Effects */
   .text-neon-purple {
     color: hsl(var(--primary));
     text-shadow: var(--shadow-neon-purple);
@@ -89,9 +127,9 @@ All colors MUST be HSL.
 
   /* Glassmorphism */
   .glass-panel {
-    background: hsl(var(--card) / 0.4);
+    background: hsl(var(--card) / 0.6);
     backdrop-filter: blur(12px);
-    border: 1px solid hsl(var(--border) / 0.3);
+    border: 1px solid hsl(var(--border) / 0.5);
     box-shadow: var(--shadow-elegant);
   }
 
@@ -128,15 +166,5 @@ All colors MUST be HSL.
     border: 1px solid transparent;
     background: linear-gradient(hsl(var(--card)), hsl(var(--card))) padding-box,
                 var(--gradient-primary) border-box;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground;
   }
 }
