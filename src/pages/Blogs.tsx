@@ -24,22 +24,14 @@ const Blogs = () => {
     },
     {
       id: "2",
-      title: "Building AI Systems Without LangChain: A First Principles Approach",
-      excerpt: "Exploring how to create powerful generative AI systems from scratch, without relying on heavy frameworks. Learn the core concepts and build truly customizable intelligence.",
-      date: "2024-01-15",
-      readTime: "8 min read",
-      category: "AI Development"
-    },
-    {
-      id: "3",
-      title: "Vector Databases Compared: Qdrant vs Chroma for Production",
+      title: "Different type of  Vector Databases Compared",
       excerpt: "A deep dive into choosing the right vector database for your AI application. Performance benchmarks, use cases, and real-world insights.",
       date: "2024-01-10",
       readTime: "12 min read",
       category: "Database"
     },
     {
-      id: "4",
+      id: "3",
       title: "FastAPI + React: Building Modern Full-Stack Applications",
       excerpt: "A comprehensive guide to building scalable, performant full-stack applications using FastAPI backend and React frontend with TypeScript.",
       date: "2024-01-05",

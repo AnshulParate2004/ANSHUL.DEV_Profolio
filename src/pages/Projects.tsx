@@ -12,7 +12,7 @@ const Projects = () => {
       color: "primary",
       github: "https://github.com/AnshulParate2004/MultiModulRag",
       demo: "https://multi-modul-rag.vercel.app/",
-      video: "https://www.youtube.com/watch?v=0eWDi7hfffffffffff",
+      video: "https://youtu.be/a9Haiu-e7ZU",
     },
     {
       title: "Rockfall Detection System for Open-Pit Mines",
