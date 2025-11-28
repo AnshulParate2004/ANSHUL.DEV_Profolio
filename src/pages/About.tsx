@@ -72,8 +72,8 @@ const About = () => {
 
             <p className="text-lg text-muted-foreground leading-relaxed">
               What sets my work apart is the focus on <span className="text-primary font-bold">AGNETICT AI</span> — 
-              magnetic, self-organizing intelligence that learns and evolves without the constraints of traditional 
-              AI frameworks like LangChain or LangGraph.
+              magnetic, self-organizing intelligence that leverages vector databases and deep learning 
+              to create systems that truly understand context and relationships.
             </p>
 
             <div className="pt-6 border-t border-border">
@@ -155,10 +155,10 @@ const About = () => {
             </div>
 
             <div className="glass-panel p-6 rounded-lg hover-glow-cyan">
-              <h3 className="text-2xl font-playfair text-secondary mb-4">AI Without Frameworks</h3>
+              <h3 className="text-2xl font-playfair text-secondary mb-4">Vector-Powered Intelligence</h3>
               <p className="text-muted-foreground">
-                Creating advanced generative AI systems from first principles, without relying on LangChain 
-                or LangGraph. Pure, efficient, and customizable intelligence.
+                Building sophisticated AI systems using Qdrant and Chroma for semantic search, 
+                contextual understanding, and intelligent data retrieval with high accuracy.
               </p>
             </div>
 

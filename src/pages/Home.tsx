@@ -30,10 +30,6 @@ const Home = () => {
       text: "It learns to observe itself. To trace its every move. Langfuse and LangSmith become its mirrors.",
     },
     {
-      title: "Evolution Without Chains",
-      text: "Built without boundaries — no LangChain, no LangGraph. Pure intelligence — born from logic, creativity, and code.",
-    },
-    {
       title: "Meet the Developer",
       text: "Hi, I'm Anshul Parate 👋",
       subtitle: "Full-Stack & Generative AI Developer",

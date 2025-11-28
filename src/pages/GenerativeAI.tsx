@@ -123,9 +123,9 @@ const GenerativeAI = () => {
           {/* Features */}
           <div className="grid md:grid-cols-3 gap-6">
             <Card className="glass-panel p-6 hover-glow-purple">
-              <h3 className="text-xl font-orbitron text-primary mb-3">No Framework Dependency</h3>
+              <h3 className="text-xl font-orbitron text-primary mb-3">Custom AI Architecture</h3>
               <p className="text-sm text-muted-foreground">
-                Built without LangChain or LangGraph. Pure, efficient AI logic.
+                Built from first principles with FastAPI, optimized for performance and flexibility.
               </p>
             </Card>
 

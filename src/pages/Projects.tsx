@@ -1,26 +1,32 @@
 import { motion } from "framer-motion";
 import Navigation from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, Video } from "lucide-react";
 
 const Projects = () => {
   const projects = [
     {
+      title: "Multi-Modular RAG System (Generative AI Project)",
+      description: "Built an end-to-end GenAI system using React, FastAPI, Qdrant, Chroma, PostgreSQL, and Unstructured.io. Extracted text and images from PDFs and stored them in a vector database for intelligent retrieval. Integrated AI-based summarization, contextual Q&A, and export options.",
+      tech: ["React", "FastAPI", "Qdrant", "Chroma", "PostgreSQL", "Unstructured.io"],
+      color: "primary",
+      github: "https://github.com/AnshulParate2004/MultiModulRag",
+      demo: "https://multi-modul-rag.vercel.app/",
+      video: "https://www.youtube.com/watch?v=0eWDi7hfffffffffff",
+    },
+    {
+      title: "Rockfall Detection System for Open-Pit Mines",
+      description: "Developed an AI-integrated safety system using Python, OpenCV, Deep Learning, and FastAPI. Implemented real-time detection, monitoring, and alert generation for potential rockfalls. Integrated the AI model into a web dashboard for live visualization and reporting.",
+      tech: ["Python", "OpenCV", "Deep Learning", "FastAPI"],
+      color: "secondary",
+      github: "https://github.com/Anuragpathak07/GeoSentinel",
+      demo: "https://sih-nu-liart.vercel.app/",
+      video: "https://www.youtube.com/watch?v=0eWDi7hRyVU",
+    },
+    {
       title: "Contextual AI Assistant",
       description: "Advanced AI assistant powered by Qdrant vector database for semantic search and contextual understanding. Handles complex queries with high accuracy.",
       tech: ["Qdrant", "FastAPI", "React", "TypeScript"],
-      color: "primary",
-    },
-    {
-      title: "Knowledge Graph Explorer",
-      description: "Interactive knowledge graph visualization using Neo4j. Maps relationships between concepts, enabling deep insights and pattern discovery.",
-      tech: ["Neo4j", "React Three Fiber", "D3.js", "Python"],
-      color: "secondary",
-    },
-    {
-      title: "Langfuse Monitoring Dashboard",
-      description: "Real-time AI system monitoring and analytics platform. Tracks model performance, token usage, and system health with beautiful visualizations.",
-      tech: ["Langfuse", "React", "Recharts", "MongoDB"],
       color: "primary",
     },
     {
@@ -78,14 +84,39 @@ const Projects = () => {
                   </div>
 
                   <div className="flex gap-4">
-                    <button className="flex items-center gap-2 text-primary hover:text-primary-glow transition-colors">
-                      <Github className="w-5 h-5" />
-                      <span className="font-rajdhani">Code</span>
-                    </button>
-                    <button className="flex items-center gap-2 text-secondary hover:text-secondary-glow transition-colors">
-                      <ExternalLink className="w-5 h-5" />
-                      <span className="font-rajdhani">Demo</span>
-                    </button>
+                    {project.github && (
+                      <a 
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-primary hover:text-primary-glow transition-colors"
+                      >
+                        <Github className="w-5 h-5" />
+                        <span className="font-rajdhani">Code</span>
+                      </a>
+                    )}
+                    {project.demo && (
+                      <a 
+                        href={project.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-secondary hover:text-secondary-glow transition-colors"
+                      >
+                        <ExternalLink className="w-5 h-5" />
+                        <span className="font-rajdhani">Demo</span>
+                      </a>
+                    )}
+                    {project.video && (
+                      <a 
+                        href={project.video}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors"
+                      >
+                        <Video className="w-5 h-5" />
+                        <span className="font-rajdhani">Video</span>
+                      </a>
+                    )}
                   </div>
                 </Card>
               </motion.div>
