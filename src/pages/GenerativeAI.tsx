@@ -201,7 +201,8 @@ const GenerativeAI = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to get response from AI");
+        const errorText = await response.text();
+        throw new Error(`Server error ${response.status}: ${errorText}`);
       }
 
       const data = await response.json();
@@ -212,16 +213,25 @@ const GenerativeAI = () => {
       };
       setMessages((prev) => [...prev, aiResponse]);
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Chat error:", error);
+      const errorMsg = error instanceof Error ? error.message : "Unknown error";
+      
+      // Check if it's likely a CORS error
+      const isCorsError = errorMsg.includes("Failed to fetch") || errorMsg.includes("NetworkError");
+      
       toast({
-        title: "Error",
-        description: "Failed to connect to AI backend. Make sure the server is running on localhost:8000",
+        title: "Connection Error",
+        description: isCorsError 
+          ? "CORS error - Backend needs to allow this domain in CORS_ORIGINS"
+          : errorMsg,
         variant: "destructive",
       });
       
       const errorResponse = {
         role: "assistant" as const,
-        content: "Sorry, I'm having trouble connecting to the AI backend. Please make sure the server is running.",
+        content: isCorsError 
+          ? "CORS error: The backend needs to add this domain to its CORS_ORIGINS setting. Please update your backend config."
+          : `Error: ${errorMsg}`,
       };
       setMessages((prev) => [...prev, errorResponse]);
     } finally {
