@@ -6,8 +6,9 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import ParticleField from "@/components/3d/ParticleField";
 import MagneticOrb from "@/components/3d/MagneticOrb";
+import { ArrowLeft } from "lucide-react";
 
-const Home = () => {
+const Story = () => {
   const navigate = useNavigate();
   const [currentScene, setCurrentScene] = useState(0);
 
@@ -47,6 +48,23 @@ const Home = () => {
 
   return (
     <div className="relative min-h-screen overflow-hidden">
+      {/* Back Button */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="fixed top-6 left-6 z-20"
+      >
+        <Button
+          onClick={() => navigate("/")}
+          variant="outline"
+          size="sm"
+          className="border-primary/50 text-primary hover:bg-primary/20 hover:border-primary font-orbitron backdrop-blur-sm"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Back to Home
+        </Button>
+      </motion.div>
+
       {/* 3D Background */}
       <div className="absolute inset-0">
         <Canvas camera={{ position: [0, 0, 10], fov: 75 }}>
@@ -146,4 +164,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Story;

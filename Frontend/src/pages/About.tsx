@@ -36,6 +36,9 @@ const About = () => {
     { name: "Langfuse", color: "#00FFFF", position: [-2, 0, 2] as [number, number, number] },
     { name: "LangSmith", color: "#8A2BE2", position: [2, -2, 0] as [number, number, number] },
     { name: "Unstructured.io", color: "#00FFFF", position: [-1, 1, -1] as [number, number, number] },
+    { name: "n8n", color: "#8A2BE2", position: [1, 1, 2] as [number, number, number] },
+    { name: "MCP Server", color: "#00FFFF", position: [-2, -2, -2] as [number, number, number] },
+    { name: "Docker", color: "#8A2BE2", position: [2, 1, -1] as [number, number, number] },
   ];
 
   return (
