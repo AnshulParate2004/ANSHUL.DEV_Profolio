@@ -171,11 +171,13 @@ const GenerativeAI = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId] = useState(() => `session_${Date.now()}`);
   const { toast } = useToast();
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll to bottom when messages change
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
   }, [messages, isLoading]);
 
   const handleSend = async () => {
@@ -296,7 +298,7 @@ const GenerativeAI = () => {
               </Button>
             </div>
 
-            <div className="flex-1 overflow-y-auto mb-4 space-y-4 scroll-smooth">
+            <div ref={chatContainerRef} className="flex-1 overflow-y-auto mb-4 space-y-4 scroll-smooth">
               {messages.map((message, index) => (
                 <motion.div
                   key={index}
@@ -335,7 +337,7 @@ const GenerativeAI = () => {
                   </div>
                 </motion.div>
               )}
-              <div ref={messagesEndRef} />
+              
             </div>
 
             <div className="flex gap-2">
