@@ -1,9 +1,11 @@
 {
-  "functions": {
-    "api/index.py": {
-      "runtime": "python3.10",
-      "maxDuration": 30,
-      "excludeFiles": "{tests,docs,__pycache__,.cache,.mypy_cache,*.md}/**"
+  "builds": [
+    {
+      "src": "Backend/Dockerfile",
+      "use": "@vercel/docker"
     }
-  }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/Backend" }
+  ]
 }
