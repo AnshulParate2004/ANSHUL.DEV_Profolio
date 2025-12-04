@@ -9,7 +9,7 @@ import { Canvas } from "@react-three/fiber";
 import ParticleField from "@/components/3d/ParticleField";
 import { useToast } from "@/hooks/use-toast";
 
-const API_BASE_URL = "https://anshul-protfolio-backend.onrender.com";
+const API_BASE_URL = "https://anshul-protfolio-backend.onrender.com/api/v1";
 
 // Format message content with headers, bold, links, bullet points, and horizontal rules
 const formatMessageContent = (content: string) => {
