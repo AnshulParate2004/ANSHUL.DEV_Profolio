@@ -1,11 +1,25 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { Play, ArrowRight, Sparkles, Code2, Brain } from "lucide-react";
 import Navigation from "@/components/Navigation";
+import { useEffect, useState } from "react";
 
 const Home = () => {
   const navigate = useNavigate();
+  const [showNotification, setShowNotification] = useState(false);
+
+  // Send health check request to wake up Render backend
+  useEffect(() => {
+    fetch("https://anshul-protfolio-backend.onrender.com/health")
+      .then(() => {
+        setShowNotification(true);
+        setTimeout(() => setShowNotification(false), 3000);
+      })
+      .catch(() => {
+        // Silently fail
+      });
+  }, []);
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-background">
@@ -24,6 +38,22 @@ const Home = () => {
 
       {/* Navigation */}
       <Navigation />
+
+      {/* Backend Wake-up Notification */}
+      <AnimatePresence>
+        {showNotification && (
+          <motion.div
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 100 }}
+            className="fixed top-20 right-4 z-50 px-4 py-2 bg-foreground/10 border border-border rounded-lg backdrop-blur-sm"
+          >
+            <span className="text-xs font-rajdhani text-muted-foreground">
+              Request sent to Render to be active
+            </span>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Hero Section */}
       <main className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 pt-20">
