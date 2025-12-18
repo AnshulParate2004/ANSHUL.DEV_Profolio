@@ -2,28 +2,36 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { motion } from "framer-motion";
 import Navigation from "@/components/Navigation";
-import { useRef } from "react";
+import { useRef, Suspense, lazy, useState, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
+// Lightweight sphere with reduced geometry
 const FloatingSkill = ({ position, color }: { position: [number, number, number]; color: string }) => {
   const meshRef = useRef<THREE.Mesh>(null);
   const initialY = position[1];
 
   useFrame((state) => {
     if (meshRef.current) {
-      meshRef.current.rotation.y += 0.01;
+      meshRef.current.rotation.y += 0.008;
       meshRef.current.position.y = initialY + Math.sin(state.clock.getElapsedTime() + position[0]) * 0.3;
     }
   });
 
   return (
     <mesh ref={meshRef} position={position}>
-      <sphereGeometry args={[0.5, 32, 32]} />
-      <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.5} />
+      <sphereGeometry args={[0.5, 16, 16]} />
+      <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.4} />
     </mesh>
   );
 };
+
+// Lightweight loading fallback
+const CanvasLoader = () => (
+  <div className="w-full h-full flex items-center justify-center bg-background/50">
+    <div className="text-primary animate-pulse font-playfair">Loading 3D...</div>
+  </div>
+);
 
 const About = () => {
   const skills = [
@@ -100,18 +108,24 @@ const About = () => {
           </p>
 
           <div className="h-[600px] glass-panel rounded-lg overflow-hidden relative mb-12">
-            <Canvas camera={{ position: [0, 0, 8], fov: 75 }}>
-              <ambientLight intensity={0.3} />
-              <directionalLight position={[5, 5, 5]} intensity={1} />
-              {skills.map((skill, index) => (
-                <FloatingSkill
-                  key={index}
-                  position={skill.position}
-                  color={skill.color}
-                />
-              ))}
-              <OrbitControls enableZoom autoRotate autoRotateSpeed={1} />
-            </Canvas>
+            <Suspense fallback={<CanvasLoader />}>
+              <Canvas 
+                camera={{ position: [0, 0, 8], fov: 75 }} 
+                dpr={[1, 1.5]}
+                performance={{ min: 0.5 }}
+              >
+                <ambientLight intensity={0.3} />
+                <directionalLight position={[5, 5, 5]} intensity={1} />
+                {skills.map((skill, index) => (
+                  <FloatingSkill
+                    key={index}
+                    position={skill.position}
+                    color={skill.color}
+                  />
+                ))}
+                <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.8} />
+              </Canvas>
+            </Suspense>
             
             {/* Skill Labels as HTML Overlay */}
             <div className="absolute inset-0 pointer-events-none">

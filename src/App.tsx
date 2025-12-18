@@ -6,8 +6,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import { ThemeProvider } from "next-themes";
 
-const Home = lazy(() => import("./pages/Home"));
-const Story = lazy(() => import("./pages/Story"));
 const About = lazy(() => import("./pages/About"));
 const Projects = lazy(() => import("./pages/Projects"));
 const GenerativeAI = lazy(() => import("./pages/GenerativeAI"));
@@ -27,9 +25,7 @@ const App = () => (
         <BrowserRouter>
           <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-background"><div className="animate-pulse text-primary font-orbitron">Loading...</div></div>}>
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/story" element={<Story />} />
-              <Route path="/about" element={<About />} />
+              <Route path="/" element={<About />} />
               <Route path="/projects" element={<Projects />} />
               <Route path="/ai" element={<GenerativeAI />} />
               <Route path="/blogs" element={<Blogs />} />
