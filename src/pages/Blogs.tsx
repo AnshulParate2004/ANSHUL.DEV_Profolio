@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import Navigation from "@/components/Navigation";
+import BlogNav from "@/components/BlogNav";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -42,7 +42,7 @@ const Blogs = () => {
 
   return (
     <div className="min-h-screen">
-      <Navigation />
+      <BlogNav />
       <div className="container mx-auto px-6 pt-[calc(4rem+10vh)] pb-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

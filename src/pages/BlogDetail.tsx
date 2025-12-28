@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import Navigation from "@/components/Navigation";
+import BlogNav from "@/components/BlogNav";
 import { Calendar, Clock, ArrowLeft } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 
@@ -8,8 +8,8 @@ const BlogDetail = () => {
 
   if (id === "2") {
     return (
-      <div className="min-h-screen">
-        <Navigation />
+      <div className="min-h-screen bg-background">
+        <BlogNav />
         <div className="container mx-auto px-6 pt-32 pb-20 max-w-4xl">
           <Link to="/blogs" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-8 transition-colors">
             <ArrowLeft size={20} />
@@ -400,8 +400,8 @@ const BlogDetail = () => {
 
   if (id !== "1") {
     return (
-      <div className="min-h-screen">
-        <Navigation />
+      <div className="min-h-screen bg-background">
+        <BlogNav />
         <div className="container mx-auto px-6 pt-32 pb-20">
           <p className="text-center text-muted-foreground">Blog post not found</p>
           <Link to="/blogs" className="flex items-center gap-2 text-primary hover:underline justify-center mt-4">
@@ -414,8 +414,8 @@ const BlogDetail = () => {
   }
 
   return (
-    <div className="min-h-screen">
-      <Navigation />
+    <div className="min-h-screen bg-background">
+      <BlogNav />
       <div className="container mx-auto px-6 pt-32 pb-20 max-w-4xl">
         <Link to="/blogs" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-8 transition-colors">
           <ArrowLeft size={20} />
