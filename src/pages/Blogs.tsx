@@ -1,6 +1,5 @@
-import { motion } from "framer-motion";
 import BlogNav from "@/components/BlogNav";
-import { Calendar, Clock, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface BlogPost {
@@ -24,7 +23,7 @@ const Blogs = () => {
     },
     {
       id: "2",
-      title: "Different type of  Vector Databases Compared",
+      title: "Different type of Vector Databases Compared",
       excerpt: "A deep dive into choosing the right vector database for your AI application. Performance benchmarks, use cases, and real-world insights.",
       date: "2024-01-10",
       readTime: "12 min read",
@@ -41,77 +40,59 @@ const Blogs = () => {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       <BlogNav />
-      <div className="container mx-auto px-6 pt-[calc(4rem+10vh)] pb-20">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
-          <h1 className="text-5xl md:text-7xl font-playfair mb-12 text-center gradient-text" style={{ lineHeight: '1.6' }}>
-            Blog & Insights
+      
+      <main className="max-w-2xl mx-auto px-6 pt-32 pb-20">
+        <header className="mb-16">
+          <h1 className="text-4xl md:text-5xl font-semibold text-foreground mb-4 tracking-tight">
+            Blog
           </h1>
-
-          <p className="text-lg text-center text-muted-foreground mb-16 max-w-3xl mx-auto pt-3 leading-relaxed">
-            Thoughts on AI development, system architecture, and building intelligent applications from first principles.
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            Thoughts on AI development, system architecture, and building intelligent applications.
           </p>
+        </header>
 
-          <div className="grid gap-8 max-w-4xl mx-auto">
-            {blogPosts.map((post, index) => (
-              <Link to={`/blog/${post.id}`} key={post.id}>
-                <motion.article
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="glass-panel p-8 rounded-lg hover-glow-purple group cursor-pointer"
-                >
-                <div className="flex items-center gap-4 mb-4 text-sm text-muted-foreground">
-                  <span className="px-3 py-1 rounded-full bg-primary/20 text-primary">
-                    {post.category}
-                  </span>
-                  <div className="flex items-center gap-2">
-                    <Calendar size={16} />
-                    <span>{new Date(post.date).toLocaleDateString('en-US', { 
+        <div className="space-y-12">
+          {blogPosts.map((post) => (
+            <article key={post.id} className="group">
+              <Link to={`/blog/${post.id}`} className="block">
+                <div className="flex items-center gap-3 text-sm text-muted-foreground mb-3">
+                  <time dateTime={post.date}>
+                    {new Date(post.date).toLocaleDateString('en-US', { 
                       year: 'numeric', 
                       month: 'long', 
                       day: 'numeric' 
-                    })}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Clock size={16} />
-                    <span>{post.readTime}</span>
-                  </div>
+                    })}
+                  </time>
+                  <span>·</span>
+                  <span>{post.readTime}</span>
+                  <span>·</span>
+                  <span>{post.category}</span>
                 </div>
 
-                <h2 className="text-2xl md:text-3xl font-playfair font-semibold mb-4 text-foreground group-hover:text-primary transition-colors">
+                <h2 className="text-xl md:text-2xl font-semibold text-foreground mb-3 group-hover:text-muted-foreground transition-colors tracking-tight">
                   {post.title}
                 </h2>
 
-                <p className="text-muted-foreground mb-6 leading-relaxed">
+                <p className="text-muted-foreground leading-relaxed mb-4">
                   {post.excerpt}
                 </p>
 
-                <div className="flex items-center gap-2 text-secondary group-hover:gap-4 transition-all">
-                  <span className="font-medium">Read Article</span>
-                  <ArrowRight size={20} />
-                </div>
-              </motion.article>
+                <span className="inline-flex items-center gap-2 text-sm font-medium text-foreground group-hover:gap-3 transition-all">
+                  Read more <ArrowRight size={16} />
+                </span>
               </Link>
-            ))}
-          </div>
+            </article>
+          ))}
+        </div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="mt-16 text-center"
-          >
-            <p className="text-muted-foreground text-lg">
-              More articles coming soon. Stay tuned for deep dives into AI, architecture, and engineering excellence.
-            </p>
-          </motion.div>
-        </motion.div>
-      </div>
+        <footer className="mt-20 pt-8 border-t border-border">
+          <p className="text-sm text-muted-foreground text-center">
+            More articles coming soon.
+          </p>
+        </footer>
+      </main>
     </div>
   );
 };

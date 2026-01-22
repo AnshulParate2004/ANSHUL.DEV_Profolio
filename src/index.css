@@ -167,4 +167,61 @@ All colors MUST be HSL.
     background: linear-gradient(hsl(var(--card)), hsl(var(--card))) padding-box,
                 var(--gradient-primary) border-box;
   }
+
+  /* Blog Prose Styles */
+  .prose-custom {
+    @apply text-foreground;
+  }
+
+  .prose-custom p {
+    @apply text-muted-foreground leading-relaxed mb-6;
+  }
+
+  .prose-custom p.lead {
+    @apply text-lg text-foreground mb-8;
+  }
+
+  .prose-custom h2 {
+    @apply text-2xl font-semibold text-foreground mt-12 mb-4 tracking-tight;
+  }
+
+  .prose-custom h3 {
+    @apply text-lg font-semibold text-foreground mt-8 mb-3;
+  }
+
+  .prose-custom ul {
+    @apply list-disc list-inside mb-6 text-muted-foreground space-y-2;
+  }
+
+  .prose-custom ol {
+    @apply list-decimal list-inside mb-6 text-muted-foreground space-y-2;
+  }
+
+  .prose-custom strong {
+    @apply text-foreground font-semibold;
+  }
+
+  .prose-custom code {
+    @apply bg-muted px-1.5 py-0.5 rounded text-sm font-mono;
+  }
+
+  .prose-custom table {
+    @apply w-full border-collapse mb-8 text-sm;
+  }
+
+  .prose-custom th {
+    @apply text-left py-3 px-4 font-semibold text-foreground border-b border-border;
+  }
+
+  .prose-custom td {
+    @apply py-3 px-4 text-muted-foreground border-b border-border;
+  }
+
+  .prose-custom a {
+    @apply text-foreground underline underline-offset-2 hover:text-muted-foreground;
+  }
+
+  .prose-custom blockquote {
+    @apply border-l-2 border-border pl-6 italic text-muted-foreground my-6;
+  }
 }
