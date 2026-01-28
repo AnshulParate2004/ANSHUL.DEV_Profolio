@@ -16,27 +16,27 @@ const Blogs = () => {
   const blogPosts: BlogPost[] = [
     {
       id: "1",
+      title: "Building ChunkSmith: Intelligent Multimodal RAG",
+      excerpt: "How we built a system that 'sees' PDFs using Unstructured.io and Gemini 2.5. A deep dive into image extraction, 'blind' vision retrieval, and vector optimization.",
+      date: "2025-10-15",
+      readTime: "15 min read",
+      category: "AI Engineering"
+    },
+    {
+      id: "2",
       title: "How Unstructured.io Works: System Dependencies Explained",
       excerpt: "Understanding the essential system dependencies required for document processing with Unstructured.io - Poppler for PDF extraction, Tesseract OCR for scanned documents, and libmagic for file type detection.",
-      date: "2024-01-20",
+      date: "2025-08-20",
       readTime: "6 min read",
       category: "AI Development"
     },
     {
-      id: "2",
+      id: "3",
       title: "Different type of Vector Databases Compared",
       excerpt: "A deep dive into choosing the right vector database for your AI application. Performance benchmarks, use cases, and real-world insights.",
-      date: "2024-01-10",
+      date: "2025-06-10",
       readTime: "12 min read",
       category: "Database"
-    },
-    {
-      id: "3",
-      title: "FastAPI + React: Building Modern Full-Stack Applications",
-      excerpt: "A comprehensive guide to building scalable, performant full-stack applications using FastAPI backend and React frontend with TypeScript.",
-      date: "2024-01-05",
-      readTime: "10 min read",
-      category: "Web Development"
     }
   ];
 
