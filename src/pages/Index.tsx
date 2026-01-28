@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ExternalLink, Github, Play, Mail, Linkedin, Send, ArrowRight, ArrowUpRight } from "lucide-react";
+import { ExternalLink, Github, Play, Mail, Linkedin, Send, ArrowRight, ArrowUpRight, GraduationCap, Briefcase } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -20,12 +20,28 @@ const Index = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate network request
-    setTimeout(() => {
-      toast.success("Message sent successfully!");
-      setFormData({ name: "", email: "", message: "" });
+
+    try {
+      const response = await fetch("http://localhost:5000/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        toast.success("Message sent successfully!");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        toast.error("Failed to send message. Please try again.");
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+      toast.error("Something went wrong. Please check your connection.");
+    } finally {
       setIsSubmitting(false);
-    }, 1500);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -197,6 +213,8 @@ const Index = () => {
         </div>
       </section>
 
+
+
       {/* Skills Section */}
       <section id="skills" className="py-24 px-6 border-t border-border/40">
         <div className="max-w-3xl mx-auto">
@@ -206,7 +224,7 @@ const Index = () => {
             viewport={{ once: true, margin: "-100px" }}
             variants={staggerContainer}
           >
-            <motion.h2 variants={fadeInUp} className="text-3xl font-bold text-foreground mb-12">Stack</motion.h2>
+            <motion.h2 variants={fadeInUp} className="text-3xl font-bold text-foreground mb-12">Technical Skills</motion.h2>
 
             <div className="grid gap-10">
               {Object.entries(skills).map(([category, items], idx) => (
@@ -293,7 +311,7 @@ const Index = () => {
             viewport={{ once: true }}
             variants={staggerContainer}
           >
-            <motion.h2 variants={fadeInUp} className="text-3xl font-bold text-foreground mb-6">Let's talk.</motion.h2>
+            <motion.h2 variants={fadeInUp} className="text-3xl font-bold text-foreground mb-6">Contact Me</motion.h2>
             <motion.p variants={fadeInUp} className="text-muted-foreground mb-12 text-lg">
               Open for freelance projects, consulting, and full-time opportunities.
             </motion.p>

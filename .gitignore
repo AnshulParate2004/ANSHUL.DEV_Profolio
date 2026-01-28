@@ -34,3 +34,9 @@ coverage/
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Backend
+server/node_modules
+server/.env
+server
+.server
