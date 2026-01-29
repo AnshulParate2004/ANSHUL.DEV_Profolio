@@ -31,6 +31,14 @@ const Blogs = () => {
       category: "AI Development"
     },
     {
+      id: "4",
+      title: "Mastering Advanced RAG: GraphRAG with Neo4j & LangChain",
+      excerpt: "Moving beyond vector similarity. How to implement GraphRAG to capture structural relationships in your data using Neo4j and LangChain.",
+      date: "2025-11-05",
+      readTime: "18 min read",
+      category: "Generative AI"
+    },
+    {
       id: "3",
       title: "Different type of Vector Databases Compared",
       excerpt: "A deep dive into choosing the right vector database for your AI application. Performance benchmarks, use cases, and real-world insights.",

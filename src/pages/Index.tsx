@@ -52,10 +52,12 @@ const Index = () => {
   };
 
   const skills = {
-    "Languages & Frameworks": ["JavaScript", "TypeScript", "Python", "React", "FastAPI", "Node.js"],
-    "Databases & Vector": ["MongoDB", "PostgreSQL", "Supabase", "Qdrant", "Chroma", "Neo4j"],
-    "AI & ML Tools": ["OpenAI SDK", "Unstructured.io", "Langfuse", "NLP", "LangSmith", "OpenCV", "TensorFlow"],
-    "DevOps & Tools": ["Docker", "n8n", "MCPServer", "Git", "AWS", "Vercel"],
+    "Generative AI": ["OpenAI SDK", "LangGraph", "LangChain", "Unstructured.io", "MCP Server"],
+    "Machine Learning": ["Computer Vision", "Scikit-learn", "Numpy", "Pandas","TensorFlow"],
+    "Backend": ["FastAPI", "Django","Flask"],
+    "Database": ["PostgreSQL", "MySQL", "MongoDB", "Qdrant", "Chroma", "Neo4j"],
+    "Frontend": ["React.js", "Framer Motion", "TailwindCSS", "Figma"],
+    "Cloud & DevOps": ["Git", "GitHub", "Render", "Vercel"],
   };
 
   const projects = [
@@ -63,7 +65,7 @@ const Index = () => {
       title: "NLP-to-Strategy Trading Engine",
       category: "FinTech & AI",
       description: "Convert natural language trading rules into executable backtested strategies using AI-powered parsing. Features backtesting engine and custom DSL.",
-      tech: ["FastAPI", "Python", "Gemini AI", "NLP", "DevOps"],
+      tech: ["React","FastAPI", "NLP", "AST","DSL","PostgreSQL"],
       github: "https://github.com/AnshulParate2004/Finacal_Adviser",
       video: "https://www.youtube.com/watch?v=3HzlPeKsfqM",
     },
@@ -71,7 +73,7 @@ const Index = () => {
       title: "Multi-Modular RAG System",
       category: "Generative AI",
       description: "Built an end-to-end GenAI system using React, FastAPI, Qdrant, Chroma, PostgreSQL, and Unstructured.io. Extracted text and images from PDFs for intelligent retrieval.",
-      tech: ["React", "FastAPI", "Qdrant", "Chroma", "PostgreSQL"],
+      tech: ["React", "FastAPI", "Qdrant", "PostgreSQL","Unstructured.io","LangChain"],
       github: "https://github.com/AnshulParate2004/MultiModulRag",
       demo: "https://multi-modul-rag.vercel.app/",
       video: "https://youtu.be/a9Haiu-e7ZU",
