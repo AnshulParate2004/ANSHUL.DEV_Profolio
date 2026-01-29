@@ -8,6 +8,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { SearchDialog } from "@/components/SearchDialog";
+import SEO from "@/components/SEO";
+import { Download } from "lucide-react";
 
 const Index = () => {
   const [formData, setFormData] = useState({
@@ -53,8 +55,8 @@ const Index = () => {
 
   const skills = {
     "Generative AI": ["OpenAI SDK", "LangGraph", "LangChain", "Unstructured.io", "MCP Server"],
-    "Machine Learning": ["Computer Vision", "Scikit-learn", "Numpy", "Pandas","TensorFlow"],
-    "Backend": ["FastAPI", "Django","Flask"],
+    "Machine Learning": ["Computer Vision", "Scikit-learn", "Numpy", "Pandas", "TensorFlow"],
+    "Backend": ["FastAPI", "Django", "Flask"],
     "Database": ["PostgreSQL", "MySQL", "MongoDB", "Qdrant", "Chroma", "Neo4j"],
     "Frontend": ["React.js", "Framer Motion", "TailwindCSS", "Figma"],
     "Cloud & DevOps": ["Git", "GitHub", "Render", "Vercel"],
@@ -65,7 +67,7 @@ const Index = () => {
       title: "NLP-to-Strategy Trading Engine",
       category: "FinTech & AI",
       description: "Convert natural language trading rules into executable backtested strategies using AI-powered parsing. Features backtesting engine and custom DSL.",
-      tech: ["React","FastAPI", "NLP", "AST","DSL","PostgreSQL"],
+      tech: ["React", "FastAPI", "NLP", "AST", "DSL", "PostgreSQL"],
       github: "https://github.com/AnshulParate2004/Finacal_Adviser",
       video: "https://www.youtube.com/watch?v=3HzlPeKsfqM",
     },
@@ -73,7 +75,7 @@ const Index = () => {
       title: "Multi-Modular RAG System",
       category: "Generative AI",
       description: "Built an end-to-end GenAI system using React, FastAPI, Qdrant, Chroma, PostgreSQL, and Unstructured.io. Extracted text and images from PDFs for intelligent retrieval.",
-      tech: ["React", "FastAPI", "Qdrant", "PostgreSQL","Unstructured.io","LangChain"],
+      tech: ["React", "FastAPI", "Qdrant", "PostgreSQL", "Unstructured.io", "LangChain"],
       github: "https://github.com/AnshulParate2004/MultiModulRag",
       demo: "https://multi-modul-rag.vercel.app/",
       video: "https://youtu.be/a9Haiu-e7ZU",
@@ -126,6 +128,10 @@ const Index = () => {
       animate="visible"
       className="min-h-screen bg-background selection:bg-orange-light/30 selection:text-orange-dark"
     >
+      <SEO
+        title="Home"
+        description="Full-Stack and Generative AI Developer specializing in React, FastAPI, MongoDB, Qdrant, and Neo4j. Building intelligent systems."
+      />
       {/* Navigation */}
       <motion.nav
         variants={fadeInUp}
@@ -146,7 +152,13 @@ const Index = () => {
                 {item}
               </button>
             ))}
-            <Link to="/blogs" className="hover:text-foreground transition-colors">Blogs</Link>
+            <a
+              href="/Resume_AnshulParate.pdf"
+              download
+              className="hover:text-foreground transition-colors flex items-center gap-1"
+            >
+              Resume
+            </a>
           </div>
 
           <div className="flex items-center gap-4">
@@ -187,6 +199,15 @@ const Index = () => {
                 className="border-border hover:bg-muted text-foreground h-10 px-6 rounded-full font-medium transition-all"
               >
                 View work
+              </Button>
+              <Button
+                variant="outline"
+                asChild
+                className="border-border hover:bg-muted text-foreground h-10 px-6 rounded-full font-medium transition-all"
+              >
+                <a href="/Resume_AnshulParate.pdf" download>
+                  Download Resume <Download className="ml-2 w-4 h-4" />
+                </a>
               </Button>
             </motion.div>
           </motion.div>

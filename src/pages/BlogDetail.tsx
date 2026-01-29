@@ -1,4 +1,5 @@
 import BlogNav from "@/components/BlogNav";
+import SEO from "@/components/SEO";
 import ReadingProgress from "@/components/ReadingProgress";
 import TableOfContents from "@/components/TableOfContents";
 import { ArrowLeft } from "lucide-react";
@@ -29,6 +30,11 @@ const BlogDetail = () => {
 
     return (
       <div className="min-h-screen bg-background selection:bg-orange-light/30 selection:text-orange-dark">
+        <SEO
+          title="Mastering Advanced RAG: GraphRAG with Neo4j & LangChain"
+          description="Learn how to implement GraphRAG to capture structural relationships in your data using Neo4j and LangChain."
+          type="article"
+        />
         <ReadingProgress />
         <BlogNav />
         <TableOfContents items={tocItems} />
@@ -263,6 +269,11 @@ const BlogDetail = () => {
 
     return (
       <div className="min-h-screen bg-background selection:bg-orange-light/30 selection:text-orange-dark">
+        <SEO
+          title="Different type of Vector Databases Compared"
+          description="A deep dive into choosing the right vector database: Qdrant, Chroma, Pinecone, Weaviate, Milvus, and FAISS."
+          type="article"
+        />
         <ReadingProgress />
         <BlogNav />
         <TableOfContents items={tocItems} />
@@ -460,6 +471,11 @@ const BlogDetail = () => {
 
     return (
       <div className="min-h-screen bg-background selection:bg-orange-light/30 selection:text-orange-dark">
+        <SEO
+          title="Building ChunkSmith: Intelligent Multimodal RAG"
+          description="How we built a system that 'sees' PDFs using Unstructured.io and Gemini 2.5."
+          type="article"
+        />
         <ReadingProgress />
         <BlogNav />
         <TableOfContents items={tocItems} />
@@ -597,6 +613,7 @@ const BlogDetail = () => {
   if (id !== "2") {
     return (
       <div className="min-h-screen bg-background flex flex-col items-center justify-center">
+        <SEO title="Post Not Found" description="The requested blog post could not be found." />
         <BlogNav />
         <div className="text-center">
           <h1 className="text-3xl font-bold text-foreground mb-4">Blog post not found</h1>
@@ -621,6 +638,11 @@ const BlogDetail = () => {
 
     return (
       <div className="min-h-screen bg-background selection:bg-orange-light/30 selection:text-orange-dark">
+        <SEO
+          title="Setting Up System Dependencies for Unstructured.io"
+          description="Understanding the essential system dependencies required for document processing with Unstructured.io."
+          type="article"
+        />
         <ReadingProgress />
         <BlogNav />
         <TableOfContents items={tocItems} />

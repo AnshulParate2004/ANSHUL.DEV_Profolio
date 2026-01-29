@@ -11,18 +11,25 @@ const BlogNav = () => {
             ap
           </Link>
           <div className="flex gap-6 items-center">
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               Home
             </Link>
-            <Link 
-              to="/blogs" 
+            <Link
+              to="/blogs"
               className="text-sm text-foreground"
             >
               Blog
             </Link>
+            <a
+              href="/Resume_AnshulParate.pdf"
+              download
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Resume
+            </a>
             <SearchDialog />
             <ThemeToggle />
           </div>

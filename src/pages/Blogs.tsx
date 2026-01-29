@@ -1,4 +1,5 @@
 import BlogNav from "@/components/BlogNav";
+import SEO from "@/components/SEO";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -65,6 +66,10 @@ const Blogs = () => {
 
   return (
     <div className="min-h-screen bg-background selection:bg-orange-light/30 selection:text-orange-dark">
+      <SEO
+        title="Thinking"
+        description="Explorations in AI development, system architecture, and intelligent software. Read my latest thoughts and tutorials."
+      />
       <BlogNav />
 
       <main className="max-w-3xl mx-auto px-6 pt-32 pb-20">
