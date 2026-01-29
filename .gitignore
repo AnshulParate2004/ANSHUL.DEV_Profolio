@@ -38,5 +38,3 @@ coverage/
 # Backend
 server/node_modules
 server/.env
-server
-.server
