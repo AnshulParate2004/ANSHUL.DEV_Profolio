@@ -841,6 +841,115 @@ const BlogDetail = () => {
     );
   }
 
+  // Blog 5: Finacal Adviser
+  if (id === "5") {
+    return (
+      <div className="min-h-screen bg-background selection:bg-orange-light/30 selection:text-orange-dark">
+        <SEO 
+          title="Building Finacal Adviser" 
+          description="How we architected a system that parses complex financial queries using NLP, generates executable trading DSLs, and backtests strategies on 5+ years of market data." 
+        />
+        <BlogNav />
+        <ReadingProgress />
+        
+        <div className="fixed left-8 top-32 hidden xl:block z-10">
+          <Link to="/blogs" className="group flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors mb-8">
+            <div className="w-8 h-8 rounded-full border border-border flex items-center justify-center group-hover:border-orange transition-colors">
+              <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform" />
+            </div>
+            Back to posts
+          </Link>
+          <TableOfContents />
+        </div>
+
+        <motion.article 
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp}
+          className="max-w-3xl mx-auto px-6 pt-32 pb-20"
+        >
+          <header className="mb-16">
+            <div className="flex flex-wrap items-center gap-4 text-xs font-medium text-muted-foreground uppercase tracking-wider mb-6">
+              <Link to="/blogs" className="hover:text-foreground transition-colors xl:hidden flex items-center gap-1">
+                <ArrowLeft size={14} /> Back
+              </Link>
+              <span className="xl:hidden text-border">•</span>
+              <span className="text-orange">FinTech & AI</span>
+              <span className="text-border">•</span>
+              <time dateTime="2026-07-31">July 31, 2026</time>
+              <span className="text-border">•</span>
+              <span>10 min read</span>
+            </div>
+            
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 tracking-tight leading-[1.1]">
+              Building Finacal Adviser: NLP to Algorithmic Trading Pipelines
+            </h1>
+            
+            <p className="text-xl text-muted-foreground leading-relaxed">
+              How we architected a system that parses complex financial queries using NLP, generates executable trading DSLs, and backtests strategies on 5+ years of market data.
+            </p>
+          </header>
+
+          <div className="prose prose-lg prose-invert max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-orange hover:prose-a:text-orange-dark prose-strong:text-foreground prose-img:rounded-xl">
+            <h2 id="the-problem">The Problem: Breaking the Code Barrier</h2>
+            <p>
+              Quantitative trading has traditionally been reserved for those who can code complex mathematical models. Traders often have brilliant intuition ("Buy when the 50-day moving average crosses the 200-day moving average, but only if RSI is below 30"), but translating that into Python or C++ takes significant time and technical expertise.
+            </p>
+            <p>
+              We built <strong>Finacal Adviser</strong> to bridge this gap. The goal was simple: allow users to type trading strategies in natural language and have the system automatically build, execute, and backtest that strategy against real historical data.
+            </p>
+
+            <h2 id="architecture">System Architecture: From NLP to DSL</h2>
+            <p>
+              Converting raw text into executable trading logic is fraught with edge cases. If a language model generates Python code directly and runs it, you risk syntax errors, infinite loops, and security vulnerabilities. Instead, we architected a safer, deterministic pipeline.
+            </p>
+
+            <Mermaid chart={`
+              graph TD
+                A[Natural Language Input] -->|NLP Parsing| B(Intent & Entity Extraction)
+                B --> C{Strategy Generator}
+                C -->|Translates to| D[Abstract Syntax Tree AST]
+                D -->|Compiles to| E[Domain Specific Language DSL]
+                E --> F[Backtesting Engine]
+                F --> G[Performance Metrics & UI]
+            `} />
+
+            <p>
+              Our pipeline works in three distinct steps:
+            </p>
+            <ol>
+              <li><strong>Intent & Entity Extraction:</strong> We use advanced NLP techniques to parse the user's query, extracting the assets (e.g., AAPL), technical indicators (e.g., SMA, RSI), and the logical operators (e.g., "greater than", "crosses over").</li>
+              <li><strong>AST Generation:</strong> We map these entities into an Abstract Syntax Tree (AST). This enforces strict structural rules—ensuring the strategy is logically sound before any code is executed.</li>
+              <li><strong>DSL Compilation:</strong> The AST is compiled into our own custom Domain Specific Language (DSL), which is tightly coupled with our Python backtesting engine.</li>
+            </ol>
+
+            <h2 id="accuracy">Achieving 95% Parsing Accuracy</h2>
+            <p>
+              Handling complex, multi-condition queries ("Buy TSLA if it drops 5% in a day while SPY is up") required fine-tuning our NLP models. By implementing a robust feedback loop and utilizing few-shot prompting techniques with a vast dataset of 5,000+ complex queries, we achieved a <strong>95% accuracy rate</strong> in accurately translating human logic into our DSL.
+            </p>
+            <p>
+              This intermediate DSL completely eliminated the backtesting setup time, reducing the time from "idea" to "execution" by <strong>80%</strong>.
+            </p>
+
+            <h2 id="backtesting">The Backtesting Engine</h2>
+            <p>
+              A strategy is only as good as its backtest. Our Python backend processes the DSL and executes it against a highly optimized PostgreSQL database containing over 5 years of historical market data.
+            </p>
+            <ul>
+              <li><strong>Data Integrity:</strong> We handled splits, dividends, and survivorship bias to ensure the backtest results reflect reality.</li>
+              <li><strong>Predictive ML Integration:</strong> Alongside standard historical backtesting, we integrated predictive ML models to forecast future signal viability, achieving an 88% predictive accuracy on out-of-sample data.</li>
+            </ul>
+
+            <h2 id="conclusion">Conclusion</h2>
+            <p>
+              Finacal Adviser proves that with the right architecture, we can abstract away the complexity of algorithmic trading. By utilizing an AST-to-DSL pipeline instead of raw code generation, we created a highly secure, deterministic, and accurate platform for financial analysis.
+            </p>
+          </div>
+        </motion.article>
+      </div>
+    );
+  }
+
   return null;
 };
 

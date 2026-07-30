@@ -46,6 +46,14 @@ const Blogs = () => {
       date: "2025-06-10",
       readTime: "12 min read",
       category: "Database"
+    },
+    {
+      id: "5",
+      title: "Building Finacal Adviser: NLP to Algorithmic Trading Pipelines",
+      excerpt: "How we architected a system that parses complex financial queries using NLP, generates executable trading DSLs, and backtests strategies on 5+ years of market data.",
+      date: "2026-07-31",
+      readTime: "10 min read",
+      category: "FinTech & AI"
     }
   ];
 
