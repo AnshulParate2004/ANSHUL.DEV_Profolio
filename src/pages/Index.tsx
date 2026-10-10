@@ -5,30 +5,14 @@ import { toast } from "sonner";
 import SEO from "@/components/SEO";
 import { StagehandNav } from "@/components/StagehandNav";
 import { AgentBenchmarkChart } from "@/components/AgentBenchmarkChart";
-import { AgentStepper } from "@/components/AgentStepper";
 
 const Index = () => {
-  const [activeLang, setActiveLang] = useState<"python" | "typescript" | "fastapi">("fastapi");
-  const [copied, setCopied] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const quickstarts = {
-    fastapi: "git clone https://github.com/AnshulParate2004/ChunkSmith.git && pip install -r requirements.txt",
-    python: "pip install langgraph langchain-openai unstructured qdrant-client",
-    typescript: "npm install @langchain/core @langchain/community neo4j-driver",
-  };
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(quickstarts[activeLang]);
-    setCopied(true);
-    toast.success("Command copied to clipboard!");
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -154,45 +138,7 @@ const Index = () => {
               </span>
             </p>
 
-            {/* Quickstart Command Box with Corner Brackets */}
-            <div className="mt-10 max-w-[34rem]">
-              <div className="flex items-center gap-4 font-bbmono text-xs lowercase">
-                {(["fastapi", "python", "typescript"] as const).map((l) => (
-                  <button
-                    key={l}
-                    onClick={() => setActiveLang(l)}
-                    className={`-my-1 inline-flex min-h-6 items-center py-1 transition-colors cursor-pointer ${
-                      activeLang === l
-                        ? 'text-chrome-ink underline decoration-chrome-green decoration-2 underline-offset-8 font-bold'
-                        : 'text-chrome-dim hover:text-chrome-ink'
-                    }`}
-                  >
-                    {l}
-                  </button>
-                ))}
-              </div>
-
-              <div className="relative mt-4">
-                <span className="pointer-events-none absolute size-2.5 border-current text-chrome-green-ink -top-px -left-px border-t-2 border-l-2"></span>
-                <span className="pointer-events-none absolute size-2.5 border-current text-chrome-green-ink -top-px -right-px border-t-2 border-r-2"></span>
-                <span className="pointer-events-none absolute size-2.5 border-current text-chrome-green-ink -bottom-px -left-px border-b-2 border-l-2"></span>
-                <span className="pointer-events-none absolute size-2.5 border-current text-chrome-green-ink -bottom-px -right-px border-b-2 border-r-2"></span>
-
-                <button
-                  onClick={handleCopy}
-                  className="flex w-full items-start justify-between gap-4 border border-dev-line bg-dev-bg px-5 py-4 text-left sm:items-center hover:border-chrome-green/40 transition-colors cursor-pointer"
-                >
-                  <code className="font-bbmono text-xs text-dev-ink break-all">
-                    <span className="text-chrome-green">$ </span>
-                    {quickstarts[activeLang]}
-                  </code>
-                  <span className="shrink-0 font-bbmono text-[11px] text-dev-dim uppercase">
-                    {copied ? 'copied! ✓' : 'copy'}
-                  </span>
-                </button>
-              </div>
-
-              <div className="mt-4 flex flex-wrap items-center gap-4 font-bbmono text-xs text-chrome-dim">
+              <div className="mt-8 flex flex-wrap items-center gap-4 font-bbmono text-xs text-chrome-dim">
                 <button
                   onClick={() => scrollTo('contact')}
                   className="inline-flex items-center gap-1.5 transition-colors hover:text-chrome-ink cursor-pointer"
@@ -219,7 +165,6 @@ const Index = () => {
                 </a>
               </div>
             </div>
-          </div>
 
           {/* Benchmark comparison card */}
           <div className="lg:pt-2">
@@ -234,26 +179,7 @@ const Index = () => {
           <span className="absolute right-0 top-0 translate-x-1/2 -translate-y-1/2 font-bbmono text-xs text-black/50">+</span>
         </div>
 
-        {/* Agent Stepper Execution Section */}
-        <section className="px-6 py-16 sm:px-10">
-          <div className="flex flex-col gap-2 mb-8">
-            <h2 className="font-brand text-[28px] tracking-[-0.02em] font-medium text-chrome-ink">
-              Autonomous Agent Architecture
-            </h2>
-            <p className="font-bbmono text-xs lowercase text-chrome-dim">
-              how anshul designs production-ready generative ai pipelines
-            </p>
-          </div>
 
-          <AgentStepper />
-        </section>
-
-        {/* Crosshair Divider */}
-        <div className="relative mx-6 h-px">
-          <span className="absolute inset-x-3 top-0 h-px bg-black/15"></span>
-          <span className="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 font-bbmono text-xs text-black/50">+</span>
-          <span className="absolute right-0 top-0 translate-x-1/2 -translate-y-1/2 font-bbmono text-xs text-black/50">+</span>
-        </div>
 
         {/* Selected Work (Stagehand Grid) */}
         <section id="projects" className="px-6 py-16 sm:px-10">
