@@ -4,21 +4,33 @@ const ReadingProgress = () => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const updateProgress = () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    // Look for scrollable container inside BrowserChrome or fallback to window
+    const scrollContainer = document.querySelector(".select-text.scroll-smooth") || window;
+
+    const handleScroll = () => {
+      let scrollTop = 0;
+      let docHeight = 0;
+
+      if (scrollContainer instanceof HTMLElement) {
+        scrollTop = scrollContainer.scrollTop;
+        docHeight = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+      } else {
+        scrollTop = window.scrollY;
+        docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      }
+
       const scrollProgress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
       setProgress(scrollProgress);
     };
 
-    window.addEventListener("scroll", updateProgress);
-    return () => window.removeEventListener("scroll", updateProgress);
+    scrollContainer.addEventListener("scroll", handleScroll);
+    return () => scrollContainer.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 right-0 h-0.5 bg-border z-[60]">
+    <div className="sticky top-0 left-0 right-0 h-1 bg-chrome-edge z-40">
       <div
-        className="h-full bg-foreground transition-[width] duration-100"
+        className="h-full bg-chrome-green transition-[width] duration-100"
         style={{ width: `${progress}%` }}
       />
     </div>

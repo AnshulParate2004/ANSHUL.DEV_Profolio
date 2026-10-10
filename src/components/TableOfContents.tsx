@@ -43,28 +43,33 @@ const TableOfContents = ({ items }: TableOfContentsProps) => {
   if (items.length === 0) return null;
 
   return (
-    <nav className="hidden xl:block fixed right-8 top-32 w-64">
-      <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-4">
-        On this page
-      </p>
-      <ul className="space-y-2 text-sm border-l border-border">
-        {items.map((item) => (
-          <li key={item.id}>
-            <button
-              onClick={() => scrollToSection(item.id)}
-              className={`block w-full text-left py-1 transition-colors hover:text-foreground ${
-                item.level === 2 ? "pl-4" : "pl-6"
-              } ${
-                activeId === item.id
-                  ? "text-foreground border-l-2 border-foreground -ml-px"
-                  : "text-muted-foreground"
-              }`}
-            >
-              {item.text}
-            </button>
-          </li>
-        ))}
-      </ul>
+    <nav className="w-56 shrink-0 font-bbmono text-xs select-none">
+      <div className="sticky top-20">
+        <p className="text-[11px] font-bold uppercase tracking-wider text-chrome-dim mb-3">
+          // ON THIS PAGE
+        </p>
+        <ul className="space-y-1.5 border-l border-chrome-edge">
+          {items.map((item) => {
+            const isActive = activeId === item.id;
+            return (
+              <li key={item.id}>
+                <button
+                  onClick={() => scrollToSection(item.id)}
+                  className={`block w-full text-left py-0.5 transition-colors cursor-pointer ${
+                    item.level === 2 ? "pl-3.5" : "pl-6"
+                  } ${
+                    isActive
+                      ? "text-chrome-ink font-bold border-l-2 border-chrome-ink -ml-px bg-chrome-field/50"
+                      : "text-chrome-slate hover:text-chrome-ink"
+                  }`}
+                >
+                  {item.text}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </nav>
   );
 };

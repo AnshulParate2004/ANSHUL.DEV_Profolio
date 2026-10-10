@@ -29,29 +29,29 @@ const BlogDetail = () => {
     ];
 
     return (
-      <div className="min-h-screen bg-background selection:bg-orange-light/30 selection:text-orange-dark">
+      <div className="min-h-full flex flex-col font-body bg-white text-chrome-ink">
         <SEO
           title="Mastering Advanced RAG: GraphRAG with Neo4j & LangChain"
           description="Learn how to implement GraphRAG to capture structural relationships in your data using Neo4j and LangChain."
           type="article"
         />
-        <ReadingProgress />
         <BlogNav />
-        <TableOfContents items={tocItems} />
+        <ReadingProgress />
 
-        <motion.article
-          initial="hidden"
-          animate="visible"
-          variants={fadeInUp}
-          className="max-w-3xl mx-auto px-6 pt-32 pb-20"
-        >
-          <Link
-            to="/blogs"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-orange mb-8 transition-colors group"
+        <div className="max-w-6xl mx-auto w-full px-6 py-10 sm:px-10 flex flex-col lg:flex-row gap-10">
+          <motion.article
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            className="flex-1 min-w-0"
           >
-            <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-            Back to blog
-          </Link>
+            <Link
+              to="/blogs"
+              className="inline-flex items-center gap-2 font-bbmono text-xs text-chrome-dim hover:text-chrome-ink mb-8 transition-colors group"
+            >
+              <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
+              <span>back to writings</span>
+            </Link>
 
           <header className="mb-12 border-b border-border/40 pb-8">
             <div className="flex items-center gap-3 text-xs font-medium text-muted-foreground mb-6 uppercase tracking-wider">
@@ -250,7 +250,12 @@ const BlogDetail = () => {
             </p>
           </div>
         </motion.article>
+
+        <div className="hidden lg:block">
+          <TableOfContents items={tocItems} />
+        </div>
       </div>
+    </div>
     );
   }
 
@@ -268,29 +273,29 @@ const BlogDetail = () => {
     ];
 
     return (
-      <div className="min-h-screen bg-background selection:bg-orange-light/30 selection:text-orange-dark">
+      <div className="min-h-full flex flex-col font-body bg-white text-chrome-ink">
         <SEO
           title="Different type of Vector Databases Compared"
           description="A deep dive into choosing the right vector database: Qdrant, Chroma, Pinecone, Weaviate, Milvus, and FAISS."
           type="article"
         />
-        <ReadingProgress />
         <BlogNav />
-        <TableOfContents items={tocItems} />
+        <ReadingProgress />
 
-        <motion.article
-          initial="hidden"
-          animate="visible"
-          variants={fadeInUp}
-          className="max-w-3xl mx-auto px-6 pt-32 pb-20"
-        >
-          <Link
-            to="/blogs"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-orange mb-8 transition-colors group"
+        <div className="max-w-6xl mx-auto w-full px-6 py-10 sm:px-10 flex flex-col lg:flex-row gap-10">
+          <motion.article
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            className="flex-1 min-w-0"
           >
-            <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-            Back to blog
-          </Link>
+            <Link
+              to="/blogs"
+              className="inline-flex items-center gap-2 font-bbmono text-xs text-chrome-dim hover:text-chrome-ink mb-8 transition-colors group"
+            >
+              <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
+              <span>back to writings</span>
+            </Link>
 
           <header className="mb-12 border-b border-border/40 pb-8">
             <div className="flex items-center gap-3 text-xs font-medium text-muted-foreground mb-6 uppercase tracking-wider">
@@ -455,7 +460,12 @@ const BlogDetail = () => {
             </p>
           </div>
         </motion.article>
+
+        <div className="hidden lg:block">
+          <TableOfContents items={tocItems} />
+        </div>
       </div>
+    </div>
     );
   }
 
@@ -470,29 +480,29 @@ const BlogDetail = () => {
     ];
 
     return (
-      <div className="min-h-screen bg-background selection:bg-orange-light/30 selection:text-orange-dark">
+      <div className="min-h-full flex flex-col font-body bg-white text-chrome-ink">
         <SEO
           title="Building ChunkSmith: Intelligent Multimodal RAG"
           description="How we built a system that 'sees' PDFs using Unstructured.io and Gemini 2.5."
           type="article"
         />
-        <ReadingProgress />
         <BlogNav />
-        <TableOfContents items={tocItems} />
+        <ReadingProgress />
 
-        <motion.article
-          initial="hidden"
-          animate="visible"
-          variants={fadeInUp}
-          className="max-w-3xl mx-auto px-6 pt-32 pb-20"
-        >
-          <Link
-            to="/blogs"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-orange mb-8 transition-colors group"
+        <div className="max-w-6xl mx-auto w-full px-6 py-10 sm:px-10 flex flex-col lg:flex-row gap-10">
+          <motion.article
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            className="flex-1 min-w-0"
           >
-            <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-            Back to blog
-          </Link>
+            <Link
+              to="/blogs"
+              className="inline-flex items-center gap-2 font-bbmono text-xs text-chrome-dim hover:text-chrome-ink mb-8 transition-colors group"
+            >
+              <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
+              <span>back to writings</span>
+            </Link>
 
 
 
@@ -605,24 +615,12 @@ const BlogDetail = () => {
             </div>
           </div>
         </motion.article>
-      </div>
-    );
-  }
 
-  // Blog not found
-  if (id !== "2") {
-    return (
-      <div className="min-h-screen bg-background flex flex-col items-center justify-center">
-        <SEO title="Post Not Found" description="The requested blog post could not be found." />
-        <BlogNav />
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-foreground mb-4">Blog post not found</h1>
-          <Link to="/blogs" className="inline-flex items-center gap-2 text-muted-foreground hover:text-orange transition-colors">
-            <ArrowLeft size={16} />
-            Back to blog
-          </Link>
+        <div className="hidden lg:block">
+          <TableOfContents items={tocItems} />
         </div>
       </div>
+    </div>
     );
   }
 
@@ -637,29 +635,29 @@ const BlogDetail = () => {
     ];
 
     return (
-      <div className="min-h-screen bg-background selection:bg-orange-light/30 selection:text-orange-dark">
+      <div className="min-h-full flex flex-col font-body bg-white text-chrome-ink">
         <SEO
           title="Setting Up System Dependencies for Unstructured.io"
           description="Understanding the essential system dependencies required for document processing with Unstructured.io."
           type="article"
         />
-        <ReadingProgress />
         <BlogNav />
-        <TableOfContents items={tocItems} />
+        <ReadingProgress />
 
-        <motion.article
-          initial="hidden"
-          animate="visible"
-          variants={fadeInUp}
-          className="max-w-2xl mx-auto px-6 pt-32 pb-20"
-        >
-          <Link
-            to="/blogs"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-orange mb-12 transition-colors group"
+        <div className="max-w-6xl mx-auto w-full px-6 py-10 sm:px-10 flex flex-col lg:flex-row gap-10">
+          <motion.article
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            className="flex-1 min-w-0"
           >
-            <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-            Back to blog
-          </Link>
+            <Link
+              to="/blogs"
+              className="inline-flex items-center gap-2 font-bbmono text-xs text-chrome-dim hover:text-chrome-ink mb-8 transition-colors group"
+            >
+              <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
+              <span>back to writings</span>
+            </Link>
 
           <header className="mb-12 border-b border-border/40 pb-8">
             <div className="flex items-center gap-3 text-xs font-medium text-muted-foreground mb-6 uppercase tracking-wider">
@@ -837,37 +835,47 @@ const BlogDetail = () => {
             </p>
           </div>
         </motion.article>
+
+        <div className="hidden lg:block">
+          <TableOfContents items={tocItems} />
+        </div>
       </div>
+    </div>
     );
   }
 
   // Blog 5: Finacal Adviser
   if (id === "5") {
+    const tocItems = [
+      { id: "nlp-pipeline", text: "The NLP to DSL Pipeline", level: 2 },
+      { id: "accuracy", text: "Achieving 95% Accuracy", level: 2 },
+      { id: "backtesting", text: "The Backtesting Engine", level: 2 },
+      { id: "conclusion", text: "Conclusion", level: 2 },
+    ];
+
     return (
-      <div className="min-h-screen bg-background selection:bg-orange-light/30 selection:text-orange-dark">
+      <div className="min-h-full flex flex-col font-body bg-white text-chrome-ink">
         <SEO 
           title="Building Finacal Adviser" 
           description="How we architected a system that parses complex financial queries using NLP, generates executable trading DSLs, and backtests strategies on 5+ years of market data." 
         />
         <BlogNav />
         <ReadingProgress />
-        
-        <div className="fixed left-8 top-32 hidden xl:block z-10">
-          <Link to="/blogs" className="group flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors mb-8">
-            <div className="w-8 h-8 rounded-full border border-border flex items-center justify-center group-hover:border-orange transition-colors">
-              <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform" />
-            </div>
-            Back to posts
-          </Link>
-          <TableOfContents />
-        </div>
 
-        <motion.article 
-          initial="hidden"
-          animate="visible"
-          variants={fadeInUp}
-          className="max-w-3xl mx-auto px-6 pt-32 pb-20"
-        >
+        <div className="max-w-6xl mx-auto w-full px-6 py-10 sm:px-10 flex flex-col lg:flex-row gap-10">
+          <motion.article 
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            className="flex-1 min-w-0"
+          >
+            <Link
+              to="/blogs"
+              className="inline-flex items-center gap-2 font-bbmono text-xs text-chrome-dim hover:text-chrome-ink mb-8 transition-colors group"
+            >
+              <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
+              <span>back to writings</span>
+            </Link>
           <header className="mb-16">
             <div className="flex flex-wrap items-center gap-4 text-xs font-medium text-muted-foreground uppercase tracking-wider mb-6">
               <Link to="/blogs" className="hover:text-foreground transition-colors xl:hidden flex items-center gap-1">
@@ -946,11 +954,28 @@ const BlogDetail = () => {
             </p>
           </div>
         </motion.article>
+
+        <div className="hidden lg:block">
+          <TableOfContents items={tocItems} />
+        </div>
       </div>
+    </div>
     );
   }
 
-  return null;
+  return (
+    <div className="min-h-full flex flex-col font-body bg-white text-chrome-ink">
+      <SEO title="Post Not Found" description="The requested blog post could not be found." />
+      <BlogNav />
+      <div className="flex-1 flex flex-col items-center justify-center p-12 text-center">
+        <h1 className="font-brand text-3xl font-medium text-chrome-ink mb-4">Blog post not found</h1>
+        <Link to="/blogs" className="font-bbmono text-xs text-chrome-dim hover:text-chrome-ink inline-flex items-center gap-1.5">
+          <ArrowLeft size={14} />
+          <span>back to writings</span>
+        </Link>
+      </div>
+    </div>
+  );
 };
 
 export default BlogDetail;
