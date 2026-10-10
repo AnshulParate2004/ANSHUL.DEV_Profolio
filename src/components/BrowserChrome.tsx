@@ -20,7 +20,7 @@ export const BrowserChrome: React.FC<BrowserChromeProps> = ({ children }) => {
 
   const initialTabs: TabItem[] = [
     { id: 'home', label: 'anshul.dev — AI Engineer & Full-Stack', path: '/' },
-    { id: 'blogs', label: 'Writing & Research', path: '/blogs' },
+    { id: 'blogs', label: 'Blogs & Research', path: '/blogs' },
   ];
 
   const [openTabs, setOpenTabs] = useState<TabItem[]>(initialTabs);

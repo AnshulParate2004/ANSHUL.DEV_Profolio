@@ -65,7 +65,7 @@ export const StagehandNav: React.FC<StagehandNavProps> = ({
                 : ''
             }`}
           >
-            writing
+            blogs
           </Link>
 
           <a
