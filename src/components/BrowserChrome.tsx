@@ -1,20 +1,77 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { WirePanel } from './WirePanel';
 
 interface BrowserChromeProps {
   children: React.ReactNode;
 }
 
+interface TabItem {
+  id: string;
+  label: string;
+  path: string;
+}
+
 export const BrowserChrome: React.FC<BrowserChromeProps> = ({ children }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [wirePanelOpen, setWirePanelOpen] = useState(false);
   const [isMaximized, setIsMaximized] = useState(false);
 
-  const tabs = [
-    { label: 'anshul.dev — AI Engineer & Full-Stack', path: '/' },
-    { label: 'Writing & Research', path: '/blogs' },
+  const initialTabs: TabItem[] = [
+    { id: 'home', label: 'anshul.dev — AI Engineer & Full-Stack', path: '/' },
+    { id: 'blogs', label: 'Writing & Research', path: '/blogs' },
   ];
+
+  const [openTabs, setOpenTabs] = useState<TabItem[]>(initialTabs);
+
+  // If navigating to a path not in openTabs, ensure it gets added/re-opened
+  const currentPath = location.pathname;
+  const isBlogDetail = currentPath.startsWith('/blog/');
+
+  // Handle closing a tab
+  const handleCloseTab = (e: React.MouseEvent, tabToClose: TabItem) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const remaining = openTabs.filter((t) => t.id !== tabToClose.id);
+    
+    // If user closes all tabs, default back to home
+    if (remaining.length === 0) {
+      const defaultTab = { id: 'home', label: 'anshul.dev — AI Engineer & Full-Stack', path: '/' };
+      setOpenTabs([defaultTab]);
+      navigate('/');
+      return;
+    }
+
+    setOpenTabs(remaining);
+
+    // If closing active tab, navigate to the adjacent remaining tab
+    const isActive = location.pathname === tabToClose.path || (tabToClose.path === '/blogs' && isBlogDetail);
+    if (isActive) {
+      const nextTab = remaining[remaining.length - 1];
+      navigate(nextTab.path);
+    }
+  };
+
+  // Handle opening a new tab
+  const handleOpenNewTab = () => {
+    const hasBlogs = openTabs.some((t) => t.id === 'blogs');
+    const hasHome = openTabs.some((t) => t.id === 'home');
+
+    if (!hasBlogs) {
+      const newTabs = [...openTabs, { id: 'blogs', label: 'Writing & Research', path: '/blogs' }];
+      setOpenTabs(newTabs);
+      navigate('/blogs');
+    } else if (!hasHome) {
+      const newTabs = [{ id: 'home', label: 'anshul.dev — AI Engineer & Full-Stack', path: '/' }, ...openTabs];
+      setOpenTabs(newTabs);
+      navigate('/');
+    } else {
+      // If both already open, navigate to blogs or refresh
+      navigate('/blogs');
+    }
+  };
 
   const handleReload = () => {
     window.location.reload();
@@ -31,15 +88,18 @@ export const BrowserChrome: React.FC<BrowserChromeProps> = ({ children }) => {
           <div className="flex h-10 items-end pr-2 pl-3.5 bg-chrome-bg select-none">
             {/* macOS Lights */}
             <div className="group/lights hidden shrink-0 sm:flex items-center gap-2 pb-[11px] mr-3">
-              <Link
-                to="/"
+              <button
+                onClick={() => {
+                  setOpenTabs(initialTabs);
+                  navigate('/');
+                }}
                 aria-label="Close"
                 title="Reset to home"
                 className="size-3 rounded-full relative flex items-center justify-center text-black/55 active:brightness-90 cursor-pointer"
                 style={{ backgroundColor: '#ff5f57' }}
               >
                 <span className="opacity-0 group-hover/lights:opacity-100 text-[8px] font-bold">✕</span>
-              </Link>
+              </button>
               <button
                 aria-label="Minimize"
                 title="Minimize window"
@@ -61,13 +121,13 @@ export const BrowserChrome: React.FC<BrowserChromeProps> = ({ children }) => {
 
             {/* Browser Tabs List */}
             <div className="flex items-end flex-1 min-w-0 overflow-x-auto scrollbar-none">
-              {tabs.map((tab) => {
-                const isActive = location.pathname === tab.path || (tab.path === '/blogs' && location.pathname.startsWith('/blog'));
+              {openTabs.map((tab) => {
+                const isActive = location.pathname === tab.path || (tab.path === '/blogs' && isBlogDetail);
                 return (
                   <Link
-                    key={tab.path}
+                    key={tab.id}
                     to={tab.path}
-                    className={`relative flex h-[34px] w-52 sm:w-64 min-w-0 items-center gap-2 rounded-t-[10px] pr-2 pl-2.5 text-xs text-chrome-ink transition-colors shrink-0 ${
+                    className={`relative flex h-[34px] w-52 sm:w-64 min-w-0 items-center gap-2 rounded-t-[10px] pr-2 pl-2.5 text-xs text-chrome-ink transition-colors shrink-0 group ${
                       isActive
                         ? 'bg-chrome-canvas font-medium shadow-sm'
                         : 'hover:bg-black/5 text-chrome-dim hover:text-chrome-ink'
@@ -75,29 +135,31 @@ export const BrowserChrome: React.FC<BrowserChromeProps> = ({ children }) => {
                   >
                     <span className="size-2 rounded-full bg-chrome-green"></span>
                     <span className="truncate">{tab.label}</span>
-                    <span
-                      role="button"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                      }}
-                      className="ml-auto flex size-4 shrink-0 items-center justify-center rounded-full text-chrome-icon hover:bg-black/10 text-[10px]"
+                    
+                    {/* Active/Hover Tab Close Button */}
+                    <button
+                      type="button"
+                      onClick={(e) => handleCloseTab(e, tab)}
+                      title={`Close ${tab.label}`}
+                      className="ml-auto flex size-4 shrink-0 items-center justify-center rounded-full text-chrome-icon hover:bg-black/10 hover:text-chrome-ink transition-colors text-[10px] cursor-pointer"
                     >
                       ✕
-                    </span>
+                    </button>
                   </Link>
                 );
               })}
 
-              <Link
-                to="/blogs"
-                title="Open writings tab"
+              {/* Plus (+) New Tab Button */}
+              <button
+                type="button"
+                onClick={handleOpenNewTab}
+                title="Open new tab"
                 className="flex size-7 shrink-0 items-center justify-center rounded-full text-chrome-icon mb-[3px] ml-1 transition-colors hover:bg-black/5 cursor-pointer"
               >
                 <svg viewBox="0 0 16 16" className="size-3.5" fill="none" strokeWidth="1.5">
                   <path d="M8 3.5v9M3.5 8h9" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"></path>
                 </svg>
-              </Link>
+              </button>
             </div>
           </div>
 
