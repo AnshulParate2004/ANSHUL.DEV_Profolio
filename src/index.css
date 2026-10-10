@@ -2,103 +2,176 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'GT Planar';
+  src: url('/fonts/GT_Planar_Medium-s.p.3-0n-210_l23-.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Plain';
+  src: url('/fonts/Plain_Regular-s.p.3x-65nz0fszwu.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GT Standard Mono';
+  src: url('/fonts/GT_Standard_Mono_Regular-s.p.0y6byqtzk4a06.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GeistMono';
+  src: url('/fonts/GeistMono_Variable.p.0b02cdm7g7y6h.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-brand: 'GT Planar', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-body: 'Plain', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-bbmono: 'GT Standard Mono', 'GeistMono', monospace;
+  --font-mono: 'GeistMono', monospace;
+
+  /* Stagehand exact theme tokens */
+  --color-chrome-bg: #ececed;
+  --color-chrome-canvas: #ffffff;
+  --color-chrome-field: #f4f4f6;
+  --color-chrome-line: #cfcfd6;
+  --color-chrome-edge: #e4e9f2;
+  --color-chrome-rule: #c5d3e8;
+  --color-chrome-ink: #111111;
+  --color-chrome-dim: #506b9c;
+  --color-chrome-slate: #46639f;
+  --color-chrome-icon: #444746;
+  --color-chrome-mute: #9bafd3;
+  --color-chrome-green: #00c851;
+  --color-chrome-green-ink: #007d33;
+  --color-chrome-tint: #f7f9fc;
+
+  --color-dev-bg: #141414;
+  --color-dev-shell: #1a1a1a;
+  --color-dev-line: #292929;
+  --color-dev-ink: #f0f0f0;
+  --color-dev-dim: #888888;
+}
+
 @layer base {
   :root {
-    /* Claude-inspired Light Mode */
-    /* Warm, paper-like background */
-    --background: 40 15% 96%; 
-    /* Soft, deep charcoal for text */
-    --foreground: 20 5% 15%; 
+    --background: 0 0% 100%;
+    --foreground: 0 0% 7%;
 
     --card: 0 0% 100%;
-    --card-foreground: 20 5% 15%;
+    --card-foreground: 0 0% 7%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 20 5% 15%;
+    --popover-foreground: 0 0% 7%;
 
-    /* The Orange Accent (#D97757) -> HSL approx 14 62% 60% */
-    --primary: 14 62% 60%;
-    --primary-foreground: 60 9% 98%;
+    --primary: 142 100% 39%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 40 10% 90%;
-    --secondary-foreground: 24 5% 20%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 0 0% 10%;
 
-    --muted: 40 10% 92%;
-    --muted-foreground: 24 5% 45%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
 
-    --accent: 14 62% 60%;
-    --accent-foreground: 60 9% 98%;
+    --accent: 142 100% 39%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 60 9% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 40 10% 88%;
-    --input: 40 10% 88%;
-    --ring: 14 62% 60%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 142 100% 39%;
 
-    --radius: 0.5rem;
-    
-    --font-heading: "Inter", system-ui, sans-serif;
+    --radius: 0.25rem;
   }
 
   .dark {
-    /* Deep, warm dark mode */
-    --background: 20 5% 10%;
-    --foreground: 40 10% 95%;
+    --background: 0 0% 7%;
+    --foreground: 0 0% 95%;
 
-    --card: 20 5% 13%;
-    --card-foreground: 40 10% 95%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 20 5% 13%;
-    --popover-foreground: 40 10% 95%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 14 62% 60%;
-    --primary-foreground: 60 9% 98%;
+    --primary: 142 100% 39%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 20 5% 18%;
-    --secondary-foreground: 40 10% 95%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 95%;
 
-    --muted: 20 5% 18%;
-    --muted-foreground: 30 5% 65%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
 
-    --accent: 14 62% 60%;
-    --accent-foreground: 60 9% 98%;
+    --accent: 142 100% 39%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 40 10% 95%;
+    --destructive-foreground: 0 0% 95%;
 
-    --border: 20 5% 18%;
-    --input: 20 5% 18%;
-    --ring: 14 62% 60%;
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 142 100% 39%;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
+  
   body {
-    @apply bg-background text-foreground;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body);
+    color: var(--color-chrome-ink);
+    background-color: #d4d4d8;
+    margin: 0;
+    padding: 0;
     -webkit-font-smoothing: antialiased;
   }
-  
-  /* Typography overrides for the new aesthetic */
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Inter', sans-serif; /* Switching to Inter for clean look, removing Playfair unless specifically requested for a serif header */
-    font-weight: 600;
-    letter-spacing: -0.02em;
+
+  ::selection {
+    background: rgba(0, 200, 81, 0.25);
   }
 }
 
-@layer utilities {
-  /* Subtle glass effect */
-  .glass-panel {
-    @apply bg-white/50 dark:bg-black/50 backdrop-blur-md border border-white/20 dark:border-white/10;
-  }
-  
-  /* Soft shadows */
-  .shadow-soft {
-    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
-  }
+.font-brand {
+  font-family: var(--font-brand) !important;
+}
+
+.font-body {
+  font-family: var(--font-body) !important;
+}
+
+.font-bbmono {
+  font-family: var(--font-bbmono) !important;
+}
+
+.font-mono {
+  font-family: var(--font-mono) !important;
+}
+
+/* Custom scrollbars matching Stagehand style */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
 }

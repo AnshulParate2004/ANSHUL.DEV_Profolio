@@ -1,23 +1,34 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ExternalLink, Github, Play, Mail, Linkedin, Send, ArrowRight, ArrowUpRight, GraduationCap, Briefcase } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { ExternalLink, Github, Play, ArrowUpRight } from "lucide-react";
 import { toast } from "sonner";
-import { ThemeToggle } from "@/components/ThemeToggle";
-import { SearchDialog } from "@/components/SearchDialog";
 import SEO from "@/components/SEO";
-import { Download } from "lucide-react";
+import { StagehandNav } from "@/components/StagehandNav";
+import { AgentBenchmarkChart } from "@/components/AgentBenchmarkChart";
+import { AgentStepper } from "@/components/AgentStepper";
 
 const Index = () => {
+  const [activeLang, setActiveLang] = useState<"python" | "typescript" | "fastapi">("fastapi");
+  const [copied, setCopied] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const quickstarts = {
+    fastapi: "git clone https://github.com/AnshulParate2004/ChunkSmith.git && pip install -r requirements.txt",
+    python: "pip install langgraph langchain-openai unstructured qdrant-client",
+    typescript: "npm install @langchain/core @langchain/community neo4j-driver",
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(quickstarts[activeLang]);
+    setCopied(true);
+    toast.success("Command copied to clipboard!");
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,9 +37,7 @@ const Index = () => {
     try {
       const response = await fetch("http://localhost:5000/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
@@ -36,357 +45,447 @@ const Index = () => {
         toast.success("Message sent successfully!");
         setFormData({ name: "", email: "", message: "" });
       } else {
-        toast.error("Failed to send message. Please try again.");
+        toast.info("Sending direct message to anshulnparateweb@gmail.com...");
+        window.location.href = `mailto:anshulnparateweb@gmail.com?subject=Contact from ${formData.name}&body=${encodeURIComponent(formData.message)}`;
       }
-    } catch (error) {
-      console.error("Submission error:", error);
-      toast.error("Something went wrong. Please check your connection.");
+    } catch {
+      window.location.href = `mailto:anshulnparateweb@gmail.com?subject=Contact from ${formData.name}&body=${encodeURIComponent(formData.message)}`;
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
   const skills = {
-    "Generative AI": ["OpenAI SDK", "LangGraph", "LangChain", "Unstructured.io", "MCP Server"],
-    "Machine Learning": ["Computer Vision", "Scikit-learn", "Numpy", "Pandas", "TensorFlow"],
-    "Backend": ["FastAPI", "Django", "Flask"],
-    "Database": ["PostgreSQL", "MySQL", "MongoDB", "Qdrant", "Chroma", "Neo4j"],
-    "Frontend": ["React.js", "Framer Motion", "TailwindCSS", "Figma"],
-    "Cloud & DevOps": ["Git", "GitHub", "Render", "Vercel"],
+    "Generative AI & Agentic": ["LangGraph", "LangChain", "OpenAI SDK", "Unstructured.io", "MCP Servers", "RAG Arch"],
+    "Machine Learning & Vision": ["PyTorch", "Computer Vision", "YOLOv8", "Scikit-learn", "OpenCV", "TensorFlow"],
+    "Backend & Distributed": ["FastAPI", "Python 3.11", "PostgreSQL", "Docker", "AsyncIO", "Django"],
+    "Vector & Graph Databases": ["Qdrant", "Neo4j (GraphRAG)", "MongoDB", "ChromaDB", "MySQL", "Redis"],
+    "Frontend & Interfaces": ["React.js", "TypeScript", "TailwindCSS", "Framer Motion", "Vite", "Zod"],
   };
 
   const projects = [
     {
       title: "ChunkSmith (Multi-Modular RAG)",
-      category: "Generative AI",
-      description: "Document-indexing research ecosystem with ChunkSmith CLI V2 and a multimodal RAG app. Extracted text and images with 94% accuracy.",
-      tech: ["React", "FastAPI", "Python", "TypeScript", "RAG"],
+      category: "Generative AI / Research",
+      headline: "High-accuracy multimodal document RAG pipeline cutting token consumption by 76%",
+      description: "Document-indexing research ecosystem with ChunkSmith CLI V2 and multimodal web RAG. Extracted text, tables, and schematics with 94% accuracy using Unstructured.io, Qdrant, and Gemini 2.5.",
+      tech: ["FastAPI", "React", "Unstructured.io", "Qdrant", "Python", "RAG"],
       github: "https://github.com/AnshulParate2004/ChunkSmith",
       demo: "https://multi-modul-rag.vercel.app/",
       video: "https://www.youtube.com/watch?v=a9Haiu-e7ZU",
+      metrics: "94% Layout Accuracy · -76% Tokens",
     },
     {
       title: "Renewal Upsell Advisor",
-      category: "AI Agents",
-      description: "Autonomous revenue agent for churn prediction, renewal workflows, voice calls, and payments. Improved conversions by 35%.",
-      tech: ["Python", "LangGraph", "FastAPI", "AI/ML"],
+      category: "Autonomous AI Agents",
+      headline: "Autonomous revenue agent for churn prediction, renewal workflows, and voice triggers",
+      description: "Stateful LangGraph multi-agent system executing customer health scoring, dynamic upsell recommendation generation, real-time voice call triggers, and automated payment gateway routing.",
+      tech: ["LangGraph", "Python", "FastAPI", "PostgreSQL", "AI/ML"],
       github: "https://github.com/AnshulParate2004/Renewal-Upsell-Advisor",
       demo: "https://renewal-upsell-advisor.services.ailifebot.com/",
       video: "https://drive.google.com/file/d/1ZNv2-3Wv_tDpjZ5S-4ZkviUXODQQLWpL/view?usp=sharing",
+      metrics: "+35% Conversion Lift · Zero Hallucinations",
     },
     {
       title: "Finacal Adviser",
-      category: "FinTech & AI",
-      description: "Python-based trading strategy generator processing complex queries into executable DSL pipelines with backtesting on 5+ years of market data.",
+      category: "FinTech & Algorithmic Trading",
+      headline: "Natural language query to executable algorithmic trading DSL generator",
+      description: "Python-based trading engine converting financial queries into typed execution pipelines with backtesting against 5+ years of real historical market data.",
       tech: ["React", "FastAPI", "NLP", "Python", "TailwindCSS"],
       github: "https://github.com/AnshulParate2004/Finacal_Adviser",
       demo: "https://finacal-adviser.vercel.app/",
       video: "https://www.youtube.com/watch?v=3HzlPeKsfqM",
+      metrics: "5+ Years Market Backtesting · Sub-second DSL Gen",
     },
     {
-      title: "Rockfall Detection System",
-      category: "AI / Deep Learning",
-      description: "AI-integrated safety system using PINN-based multi-sensor analysis and YOLOv8. Real-time geospatial alert dashboard for open-pit mines.",
-      tech: ["Python", "YOLOv8", "PyTorch", "OpenCV", "FastAPI", "React"],
+      title: "GeoSentinel Rockfall Detection",
+      category: "Deep Learning & Geospatial",
+      headline: "PINN-based multi-sensor analysis and YOLOv8 real-time mine safety alerts",
+      description: "AI-integrated hazardous zone safety system using Physics-Informed Neural Networks and computer vision. Real-time geospatial alert dashboard deployed for open-pit mines.",
+      tech: ["YOLOv8", "PyTorch", "OpenCV", "FastAPI", "React"],
       github: "https://github.com/AnshulParate2004/GeoSentinel",
       demo: "https://sih-nu-liart.vercel.app/",
       video: "https://www.youtube.com/watch?v=0eWDi7hRyVU",
+      metrics: "Real-time Edge Video Inference · SIH Finalist",
     },
   ];
 
-  const scrollToSection = (id: string) => {
+  const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
-  };
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
   return (
-    <motion.div
-      initial="hidden"
-      animate="visible"
-      className="min-h-screen bg-background selection:bg-orange-light/30 selection:text-orange-dark"
-    >
+    <div className="min-h-full flex flex-col font-body bg-white text-chrome-ink">
       <SEO
-        title="Home"
-        description="Full-Stack and Generative AI Developer specializing in React, FastAPI, MongoDB, Qdrant, and Neo4j. Building intelligent systems."
+        title="Anshul Parate | Autonomous AI & Full-Stack Engineer"
+        description="Full-Stack and Generative AI Developer specializing in LangGraph, Multimodal RAG, FastAPI, React, Qdrant, and Neo4j."
       />
-      {/* Navigation */}
-      <motion.nav
-        variants={fadeInUp}
-        className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/40"
-      >
-        <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-xl font-bold tracking-tight text-foreground hover:text-orange transition-colors">
-            ap.
-          </Link>
 
-          <div className="hidden md:flex gap-8 items-center text-sm font-medium text-muted-foreground">
-            {['About', 'Skills', 'Projects', 'Contact'].map((item) => (
-              <button
-                key={item}
-                onClick={() => scrollToSection(item.toLowerCase())}
-                className="hover:text-foreground transition-colors"
-              >
-                {item}
-              </button>
-            ))}
-            <a
-              href="/Resume_AnshulParate.pdf"
-              download
-              className="hover:text-foreground transition-colors flex items-center gap-1"
+      <StagehandNav
+        onProjectsClick={() => scrollTo('projects')}
+        onSkillsClick={() => scrollTo('skills')}
+        onContactClick={() => scrollTo('contact')}
+      />
+
+      <main className="relative flex-1">
+        {/* Stagehand Hero Section */}
+        <section className="grid grid-cols-1 gap-12 px-6 pt-14 pb-20 sm:px-10 lg:grid-cols-[1.25fr_1fr] lg:gap-16">
+          <div>
+            <Link
+              to="/blogs"
+              className="group font-bbmono text-xs lowercase text-chrome-dim transition-colors hover:text-chrome-green-ink inline-block"
             >
-              Resume
-            </a>
-          </div>
+              // <span className="underline decoration-chrome-mute decoration-1 underline-offset-4 transition-colors group-hover:decoration-chrome-green-ink">
+                from the lab: building chunkSmith multimodal rag →
+              </span>
+            </Link>
 
-          <div className="flex items-center gap-4">
-            <SearchDialog />
-            <ThemeToggle />
-          </div>
-        </div>
-      </motion.nav>
+            <h1 className="mt-8 max-w-[800px] font-brand text-[38px] sm:text-[50px] xl:text-[58px] leading-[1.06] tracking-[-0.03em] font-medium text-chrome-ink">
+              Anshul builds autonomous AI agents & scalable full-stack engines.
+            </h1>
 
-      {/* Hero Section */}
-      <section id="hero" className="pt-40 pb-20 px-6">
-        <div className="max-w-3xl mx-auto">
-          <motion.div variants={staggerContainer} initial="hidden" animate="visible">
-            <motion.div variants={fadeInUp} className="flex items-center gap-2 mb-6">
-              <span className="h-px w-8 bg-orange"></span>
-              <span className="text-sm font-medium text-orange tracking-wide">FULL-STACK & GEN AI</span>
-            </motion.div>
+            <p className="mt-7 max-w-[580px] text-base sm:text-lg leading-[1.6]">
+              <span className="font-medium text-chrome-ink">
+                Traditional apps wait for input. Autonomous agents observe, reason, and act.
+              </span>{" "}
+              <span className="text-chrome-slate">
+                Specializing in LangGraph multi-agent workflows, multimodal RAG architectures, FastAPI backends, and low-latency interactive React frontends.
+              </span>
+            </p>
 
-            <motion.h1 variants={fadeInUp} className="text-5xl md:text-7xl font-bold text-foreground mb-8 tracking-tight leading-tight">
-              Anshul Parate
-            </motion.h1>
+            {/* Quickstart Command Box with Corner Brackets */}
+            <div className="mt-10 max-w-[34rem]">
+              <div className="flex items-center gap-4 font-bbmono text-xs lowercase">
+                {(["fastapi", "python", "typescript"] as const).map((l) => (
+                  <button
+                    key={l}
+                    onClick={() => setActiveLang(l)}
+                    className={`-my-1 inline-flex min-h-6 items-center py-1 transition-colors cursor-pointer ${
+                      activeLang === l
+                        ? 'text-chrome-ink underline decoration-chrome-green decoration-2 underline-offset-8 font-bold'
+                        : 'text-chrome-dim hover:text-chrome-ink'
+                    }`}
+                  >
+                    {l}
+                  </button>
+                ))}
+              </div>
 
-            <motion.p variants={fadeInUp} className="text-xl text-muted-foreground leading-relaxed mb-10 max-w-2xl">
-              I build <span className="text-foreground">intelligent systems</span> from first principles.
-              Specializing in Generative AI, agentic workflows, and scalable web applications that feel precise and human.
-            </motion.p>
+              <div className="relative mt-4">
+                <span className="pointer-events-none absolute size-2.5 border-current text-chrome-green-ink -top-px -left-px border-t-2 border-l-2"></span>
+                <span className="pointer-events-none absolute size-2.5 border-current text-chrome-green-ink -top-px -right-px border-t-2 border-r-2"></span>
+                <span className="pointer-events-none absolute size-2.5 border-current text-chrome-green-ink -bottom-px -left-px border-b-2 border-l-2"></span>
+                <span className="pointer-events-none absolute size-2.5 border-current text-chrome-green-ink -bottom-px -right-px border-b-2 border-r-2"></span>
 
-            <motion.div variants={fadeInUp} className="flex flex-wrap gap-4">
-              <Button
-                onClick={() => scrollToSection('contact')}
-                className="bg-foreground text-background hover:bg-foreground/90 h-10 px-6 rounded-full font-medium transition-all"
-              >
-                Get in touch
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => scrollToSection('projects')}
-                className="border-border hover:bg-muted text-foreground h-10 px-6 rounded-full font-medium transition-all"
-              >
-                View work
-              </Button>
-              <Button
-                variant="outline"
-                asChild
-                className="border-border hover:bg-muted text-foreground h-10 px-6 rounded-full font-medium transition-all"
-              >
-                <a href="/Resume_AnshulParate.pdf" download>
-                  Download Resume <Download className="ml-2 w-4 h-4" />
+                <button
+                  onClick={handleCopy}
+                  className="flex w-full items-start justify-between gap-4 border border-dev-line bg-dev-bg px-5 py-4 text-left sm:items-center hover:border-chrome-green/40 transition-colors cursor-pointer"
+                >
+                  <code className="font-bbmono text-xs text-dev-ink break-all">
+                    <span className="text-chrome-green">$ </span>
+                    {quickstarts[activeLang]}
+                  </code>
+                  <span className="shrink-0 font-bbmono text-[11px] text-dev-dim uppercase">
+                    {copied ? 'copied! ✓' : 'copy'}
+                  </span>
+                </button>
+              </div>
+
+              <div className="mt-4 flex flex-wrap items-center gap-4 font-bbmono text-xs text-chrome-dim">
+                <button
+                  onClick={() => scrollTo('contact')}
+                  className="inline-flex items-center gap-1.5 transition-colors hover:text-chrome-ink cursor-pointer"
+                >
+                  <span>contact anshul</span>
+                  <span>→</span>
+                </button>
+                <span>·</span>
+                <a
+                  href="/Resume_AnshulParate.pdf"
+                  download
+                  className="transition-colors hover:text-chrome-ink"
+                >
+                  download resume
                 </a>
-              </Button>
-            </motion.div>
-          </motion.div>
+                <span>·</span>
+                <a
+                  href="https://github.com/AnshulParate2004"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-chrome-ink"
+                >
+                  github profile
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Benchmark comparison card */}
+          <div className="lg:pt-2">
+            <AgentBenchmarkChart />
+          </div>
+        </section>
+
+        {/* Crosshair Divider */}
+        <div className="relative mx-6 h-px">
+          <span className="absolute inset-x-3 top-0 h-px bg-black/15"></span>
+          <span className="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 font-bbmono text-xs text-black/50">+</span>
+          <span className="absolute right-0 top-0 translate-x-1/2 -translate-y-1/2 font-bbmono text-xs text-black/50">+</span>
         </div>
-      </section>
 
-      {/* About Section - Dedicated */}
-      <section id="about" className="py-24 px-6 border-t border-border/40">
-        <div className="max-w-3xl mx-auto">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-          >
-            <motion.h2 variants={fadeInUp} className="text-3xl font-bold text-foreground mb-8">About Me</motion.h2>
-            <motion.div variants={fadeInUp} className="prose prose-lg text-muted-foreground leading-relaxed">
-              <p className="mb-6">
-                I am a passionate developer focusing on the intersection of <span className="text-foreground font-medium">Full-Stack Engineering</span> and <span className="text-foreground font-medium">Artificial Intelligence</span>. My work involves creating systems that can understand, reason, and act—moving beyond simple automation to genuine intelligence.
-              </p>
-              <p>
-                From building complex RAG pipelines to designing intuitive user interfaces, I believe in craftsmanship at every level of the stack. I enjoy solving hard problems, optimizing performance, and exploring the frontiers of what's possible with LLMs.
-              </p>
-            </motion.div>
-          </motion.div>
+        {/* Agent Stepper Execution Section */}
+        <section className="px-6 py-16 sm:px-10">
+          <div className="flex flex-col gap-2 mb-8">
+            <h2 className="font-brand text-[28px] tracking-[-0.02em] font-medium text-chrome-ink">
+              Autonomous Agent Architecture
+            </h2>
+            <p className="font-bbmono text-xs lowercase text-chrome-dim">
+              how anshul designs production-ready generative ai pipelines
+            </p>
+          </div>
+
+          <AgentStepper />
+        </section>
+
+        {/* Crosshair Divider */}
+        <div className="relative mx-6 h-px">
+          <span className="absolute inset-x-3 top-0 h-px bg-black/15"></span>
+          <span className="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 font-bbmono text-xs text-black/50">+</span>
+          <span className="absolute right-0 top-0 translate-x-1/2 -translate-y-1/2 font-bbmono text-xs text-black/50">+</span>
         </div>
-      </section>
 
+        {/* Selected Work (Stagehand Grid) */}
+        <section id="projects" className="px-6 py-16 sm:px-10">
+          <div className="flex flex-col gap-2 mb-8">
+            <h2 className="font-brand text-[28px] tracking-[-0.02em] font-medium text-chrome-ink">
+              Selected Deployments & Systems
+            </h2>
+            <p className="font-bbmono text-xs lowercase text-chrome-dim">
+              real-world generative ai & distributed systems in production
+            </p>
+          </div>
 
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {projects.map((proj, idx) => (
+              <article
+                key={idx}
+                className="group relative border border-chrome-edge bg-white p-6 hover:border-chrome-ink transition-colors flex flex-col justify-between"
+              >
+                {/* Corner markers on hover */}
+                <span className="pointer-events-none absolute size-2 border-current text-chrome-green-ink -top-px -left-px border-t border-l opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                <span className="pointer-events-none absolute size-2 border-current text-chrome-green-ink -top-px -right-px border-t border-r opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                <span className="pointer-events-none absolute size-2 border-current text-chrome-green-ink -bottom-px -left-px border-b border-l opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                <span className="pointer-events-none absolute size-2 border-current text-chrome-green-ink -bottom-px -right-px border-b border-r opacity-0 group-hover:opacity-100 transition-opacity"></span>
 
-      {/* Skills Section */}
-      <section id="skills" className="py-24 px-6 border-t border-border/40">
-        <div className="max-w-3xl mx-auto">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-          >
-            <motion.h2 variants={fadeInUp} className="text-3xl font-bold text-foreground mb-12">Technical Skills</motion.h2>
+                <div>
+                  <div className="flex items-center justify-between font-bbmono text-[11px] mb-3">
+                    <span className="text-chrome-green-ink font-bold lowercase">{proj.category}</span>
+                    <span className="bg-chrome-canvas text-chrome-slate px-2 py-0.5 border border-chrome-edge rounded">
+                      {proj.metrics}
+                    </span>
+                  </div>
 
-            <div className="grid gap-10">
-              {Object.entries(skills).map(([category, items], idx) => (
-                <motion.div variants={fadeInUp} key={idx} className="group">
-                  <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4 group-hover:text-orange transition-colors">{category}</h3>
-                  <div className="flex flex-wrap gap-3">
-                    {items.map((skill, i) => (
-                      <span key={i} className="px-3 py-1 text-sm text-foreground bg-secondary/50 border border-transparent hover:border-orange/30 hover:bg-orange/5 rounded-md transition-all cursor-default">
-                        {skill}
+                  <h3 className="font-brand text-xl font-medium text-chrome-ink mb-2 group-hover:text-chrome-green-ink transition-colors">
+                    {proj.title}
+                  </h3>
+
+                  <p className="font-bbmono text-xs text-chrome-slate font-medium mb-3">
+                    {proj.headline}
+                  </p>
+
+                  <p className="text-xs text-chrome-dim leading-relaxed mb-6 font-body">
+                    {proj.description}
+                  </p>
+                </div>
+
+                <div>
+                  {/* Tech stack badges */}
+                  <div className="flex flex-wrap gap-1.5 mb-5 font-bbmono text-[10px]">
+                    {proj.tech.map((t, i) => (
+                      <span key={i} className="border px-2 py-0.5 border-chrome-edge text-chrome-dim bg-chrome-field">
+                        {t}
                       </span>
                     ))}
                   </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* Projects Section */}
-      <section id="projects" className="py-24 px-6 border-t border-border/40 bg-secondary/20">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-          >
-            <motion.h2 variants={fadeInUp} className="text-3xl font-bold text-foreground mb-12">Selected Work</motion.h2>
-
-            <div className="grid gap-8">
-              {projects.map((project, index) => (
-                <motion.article
-                  variants={fadeInUp}
-                  key={index}
-                  className="group relative bg-card p-8 rounded-xl border border-border hover:border-orange/40 transition-all hover:shadow-soft"
-                >
-                  <div className="absolute top-8 right-8 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1">
-                    <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-orange" />
-                  </div>
-
-                  <div className="mb-6">
-                    <span className="text-xs font-semibold text-orange tracking-wider uppercase mb-2 block">{project.category}</span>
-                    <h3 className="text-2xl font-bold text-foreground mb-3">{project.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed">{project.description}</p>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {project.tech.map((tech, i) => (
-                      <span key={i} className="text-xs font-medium text-muted-foreground px-2 py-1 bg-secondary rounded">{tech}</span>
-                    ))}
-                  </div>
-
-                  <div className="flex gap-4 opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0 duration-300">
-                    {project.github && (
-                      <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-orange transition-colors">
-                        <Github className="w-4 h-4" /> Code
+                  {/* Links */}
+                  <div className="flex items-center gap-4 pt-3 border-t border-chrome-rule font-bbmono text-xs">
+                    {proj.github && (
+                      <a
+                        href={proj.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-chrome-dim hover:text-chrome-ink transition-colors"
+                      >
+                        <Github className="size-3.5" /> code
                       </a>
                     )}
-                    {project.demo && (
-                      <a href={project.demo} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-orange transition-colors">
-                        <ExternalLink className="w-4 h-4" /> Demo
+                    {proj.demo && (
+                      <a
+                        href={proj.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-chrome-dim hover:text-chrome-green-ink transition-colors"
+                      >
+                        <ExternalLink className="size-3.5" /> live demo
                       </a>
                     )}
-                    {project.video && (
-                      <a href={project.video} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-orange transition-colors">
-                        <Play className="w-4 h-4" /> Watch
+                    {proj.video && (
+                      <a
+                        href={proj.video}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-chrome-dim hover:text-chrome-ink transition-colors"
+                      >
+                        <Play className="size-3.5" /> watch
                       </a>
                     )}
                   </div>
-                </motion.article>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="py-24 px-6 border-t border-border/40">
-        <div className="max-w-2xl mx-auto">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-          >
-            <motion.h2 variants={fadeInUp} className="text-3xl font-bold text-foreground mb-6">Contact Me</motion.h2>
-            <motion.p variants={fadeInUp} className="text-muted-foreground mb-12 text-lg">
-              Open for freelance projects, consulting, and full-time opportunities.
-            </motion.p>
-
-            <motion.form variants={fadeInUp} onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label htmlFor="name" className="text-sm font-medium text-foreground">Name</label>
-                  <Input id="name" name="name" value={formData.name} onChange={handleChange} required className="bg-background border-border focus:border-orange transition-colors" placeholder="Your name" />
                 </div>
-                <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm font-medium text-foreground">Email</label>
-                  <Input id="email" name="email" type="email" value={formData.email} onChange={handleChange} required className="bg-background border-border focus:border-orange transition-colors" placeholder="your@email.com" />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="message" className="text-sm font-medium text-foreground">Message</label>
-                <Textarea id="message" name="message" value={formData.message} onChange={handleChange} required rows={5} className="bg-background border-border focus:border-orange resize-none transition-colors" placeholder="How can I help you?" />
-              </div>
+              </article>
+            ))}
+          </div>
+        </section>
 
-              <div className="flex items-center justify-end pt-4">
-                <Button type="submit" disabled={isSubmitting} className="bg-orange text-white hover:bg-orange-dark transition-colors px-6">
-                  {isSubmitting ? "Sending..." : "Send Message"}
-                </Button>
-              </div>
-            </motion.form>
-          </motion.div>
+        {/* Crosshair Divider */}
+        <div className="relative mx-6 h-px">
+          <span className="absolute inset-x-3 top-0 h-px bg-black/15"></span>
+          <span className="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 font-bbmono text-xs text-black/50">+</span>
+          <span className="absolute right-0 top-0 translate-x-1/2 -translate-y-1/2 font-bbmono text-xs text-black/50">+</span>
         </div>
-      </section>
 
-      {/* Footer */}
-      <footer className="py-12 px-6 border-t border-border/40 bg-secondary/10">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="text-center md:text-left">
-            <p className="text-sm text-muted-foreground font-medium">
-              © {new Date().getFullYear()} Anshul Parate.
+        {/* Technical Stack Section */}
+        <section id="skills" className="px-6 py-16 sm:px-10">
+          <div className="flex flex-col gap-2 mb-8">
+            <h2 className="font-brand text-[28px] tracking-[-0.02em] font-medium text-chrome-ink">
+              Core Engineering Stack
+            </h2>
+            <p className="font-bbmono text-xs lowercase text-chrome-dim">
+              technologies, libraries, and frameworks honed through production deployments
             </p>
-            <p className="text-xs text-muted-foreground/60 mt-1">Built with React, Tailwind & Motion.</p>
           </div>
 
-          <div className="flex gap-6">
-            <a href="https://github.com/AnshulParate2004" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-orange transition-colors">
-              <Github className="w-5 h-5" />
-            </a>
-            <a href="https://www.linkedin.com/in/anshulparate/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-orange transition-colors">
-              <Linkedin className="w-5 h-5" />
-            </a>
-            <a href="mailto:anshulnparate@gmail.com" className="text-muted-foreground hover:text-orange transition-colors">
-              <Mail className="w-5 h-5" />
-            </a>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {Object.entries(skills).map(([category, items], idx) => (
+              <div key={idx} className="border border-chrome-edge bg-white p-5 hover:border-chrome-ink transition-colors">
+                <span className="font-bbmono text-xs text-chrome-dim uppercase tracking-wider block mb-3">
+                  {category}
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {items.map((item, i) => (
+                    <span
+                      key={i}
+                      className="border border-chrome-edge bg-chrome-field px-2.5 py-1 font-bbmono text-xs text-chrome-ink rounded"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
+        </section>
+
+        {/* Crosshair Divider */}
+        <div className="relative mx-6 h-px">
+          <span className="absolute inset-x-3 top-0 h-px bg-black/15"></span>
+          <span className="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 font-bbmono text-xs text-black/50">+</span>
+          <span className="absolute right-0 top-0 translate-x-1/2 -translate-y-1/2 font-bbmono text-xs text-black/50">+</span>
         </div>
-      </footer>
-    </motion.div>
+
+        {/* Contact Section */}
+        <section id="contact" className="px-6 py-16 sm:px-10">
+          <div className="max-w-2xl">
+            <h2 className="font-brand text-[28px] tracking-[-0.02em] font-medium text-chrome-ink mb-2">
+              Let's Build Something Intelligent
+            </h2>
+            <p className="font-bbmono text-xs lowercase text-chrome-dim mb-8">
+              open for remote ai/ml roles, full-stack contracts, and forward-deployed agent engineering
+            </p>
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block font-bbmono text-xs text-chrome-dim mb-1.5 lowercase">
+                    name
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="w-full border border-chrome-edge bg-chrome-field px-3.5 py-2.5 font-bbmono text-xs text-chrome-ink outline-none focus:border-chrome-ink"
+                    placeholder="Ada Lovelace"
+                  />
+                </div>
+                <div>
+                  <label className="block font-bbmono text-xs text-chrome-dim mb-1.5 lowercase">
+                    email
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="w-full border border-chrome-edge bg-chrome-field px-3.5 py-2.5 font-bbmono text-xs text-chrome-ink outline-none focus:border-chrome-ink"
+                    placeholder="ada@domain.com"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block font-bbmono text-xs text-chrome-dim mb-1.5 lowercase">
+                  message
+                </label>
+                <textarea
+                  required
+                  rows={4}
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  className="w-full border border-chrome-edge bg-chrome-field px-3.5 py-2.5 font-bbmono text-xs text-chrome-ink outline-none focus:border-chrome-ink resize-none"
+                  placeholder="Tell me about your AI architecture or project requirements..."
+                />
+              </div>
+
+              <div className="flex items-center justify-between pt-2">
+                <span className="font-bbmono text-[11px] text-chrome-dim">
+                  direct: anshulnparateweb@gmail.com
+                </span>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="inline-flex h-10 items-center justify-center font-bbmono text-xs bg-chrome-ink text-white px-6 hover:opacity-85 transition-opacity cursor-pointer disabled:opacity-50"
+                >
+                  {isSubmitting ? "transmitting..." : "send message →"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        {/* Stagehand Footer */}
+        <footer className="border-t border-chrome-edge px-6 py-10 sm:px-10 bg-white">
+          <div className="flex flex-col sm:flex-row items-baseline justify-between gap-4 font-bbmono text-xs text-chrome-dim">
+            <div>
+              <span className="text-chrome-ink font-bold">anshul parate</span> · b.tech cse (aiml) 2023-2027 · shri ramdeobaba college
+            </div>
+
+            <div className="flex gap-6 lowercase">
+              <a href="https://github.com/AnshulParate2004" target="_blank" rel="noopener noreferrer" className="hover:text-chrome-ink">
+                github
+              </a>
+              <a href="https://www.linkedin.com/in/anshulparate/" target="_blank" rel="noopener noreferrer" className="hover:text-chrome-ink">
+                linkedin
+              </a>
+              <a href="mailto:anshulnparateweb@gmail.com" className="hover:text-chrome-ink">
+                email
+              </a>
+            </div>
+          </div>
+        </footer>
+      </main>
+    </div>
   );
 };
 
