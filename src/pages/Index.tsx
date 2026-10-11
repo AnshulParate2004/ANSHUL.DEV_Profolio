@@ -51,6 +51,7 @@ const Index = () => {
   const projects = [
     {
       title: "ChunkSmith (Multi-Modular RAG)",
+      articleTag: "chunksmith",
       category: "Generative AI / Research",
       headline: "High-accuracy multimodal document RAG pipeline cutting token consumption by 76%",
       description: "Document-indexing research ecosystem with ChunkSmith CLI V2 and multimodal web RAG. Extracted text, tables, and schematics with 94% accuracy using Unstructured.io, Qdrant, and Gemini 2.5.",
@@ -63,6 +64,7 @@ const Index = () => {
     },
     {
       title: "Renewal Upsell Advisor",
+      articleTag: "renewal advisor",
       category: "Autonomous AI Agents",
       headline: "Autonomous revenue agent for churn prediction, renewal workflows, and voice triggers",
       description: "Stateful LangGraph multi-agent system executing customer health scoring, dynamic upsell recommendation generation, real-time voice call triggers, and automated payment gateway routing.",
@@ -74,6 +76,7 @@ const Index = () => {
     },
     {
       title: "Finacal Adviser",
+      articleTag: "finacal adviser",
       category: "FinTech & Algorithmic Trading",
       headline: "Natural language query to executable algorithmic trading DSL generator",
       description: "Python-based trading engine converting financial queries into typed execution pipelines with backtesting against 5+ years of real historical market data.",
@@ -86,6 +89,7 @@ const Index = () => {
     },
     {
       title: "GeoSentinel Rockfall Detection",
+      articleTag: "geosentinel",
       category: "Deep Learning & Geospatial",
       headline: "PINN-based multi-sensor analysis and YOLOv8 real-time mine safety alerts",
       description: "AI-integrated hazardous zone safety system using Physics-Informed Neural Networks and computer vision. Real-time geospatial alert dashboard deployed for open-pit mines.",
@@ -96,6 +100,26 @@ const Index = () => {
       metrics: "Real-time Edge Video Inference · SIH Finalist",
     },
   ];
+
+  const handleExtract = (proj: typeof projects[0]) => {
+    const data = JSON.stringify(
+      {
+        project: proj.title,
+        category: proj.category,
+        headline: proj.headline,
+        metrics: proj.metrics,
+        tech: proj.tech,
+        github: proj.github,
+        demo: proj.demo,
+      },
+      null,
+      2
+    );
+    if (navigator?.clipboard?.writeText) {
+      navigator.clipboard.writeText(data);
+    }
+    toast.success(`Extracted architecture schema for ${proj.title}! Copied to clipboard.`);
+  };
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -194,100 +218,127 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {projects.map((proj, idx) => (
-              <article
-                key={idx}
-                className="group relative border border-chrome-edge bg-white p-6 hover:border-chrome-ink transition-colors flex flex-col justify-between"
-              >
-                {/* Corner markers on hover */}
-                <span className="pointer-events-none absolute size-2 border-current text-chrome-green-ink -top-px -left-px border-t border-l opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                <span className="pointer-events-none absolute size-2 border-current text-chrome-green-ink -top-px -right-px border-t border-r opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                <span className="pointer-events-none absolute size-2 border-current text-chrome-green-ink -bottom-px -left-px border-b border-l opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                <span className="pointer-events-none absolute size-2 border-current text-chrome-green-ink -bottom-px -right-px border-b border-r opacity-0 group-hover:opacity-100 transition-opacity"></span>
+          <div className="pt-8">
+            <div className="relative grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-10">
+              {projects.map((proj, idx) => (
+                <article
+                  key={idx}
+                  className="group relative border border-chrome-edge bg-white p-6 hover:border-chrome-ink transition-colors flex flex-col justify-between"
+                >
+                  {/* Subtle green tint overlay on hover */}
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 z-0 bg-chrome-green/[0.06] opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity"
+                  ></span>
 
-                <div>
-                  <div className="flex items-center justify-between font-bbmono text-[11px] mb-3">
-                    <span className="text-chrome-green-ink font-bold lowercase">{proj.category}</span>
-                    <span className="bg-chrome-canvas text-chrome-slate px-2 py-0.5 border border-chrome-edge rounded">
-                      {proj.metrics}
+                  {/* Stagehand Signature Green Box + extract() tab above card */}
+                  <span className="pointer-events-none absolute z-20 flex h-6 items-stretch opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity left-3 -top-px -translate-y-full">
+                    <span
+                      aria-hidden="true"
+                      className="flex items-center bg-chrome-green px-2 font-bbmono text-[11px] whitespace-nowrap text-white font-medium select-none"
+                    >
+                      article "{proj.articleTag || proj.title.toLowerCase()}"
                     </span>
-                  </div>
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleExtract(proj);
+                      }}
+                      aria-label={`extract data from ${proj.title}`}
+                      className="pointer-events-auto flex items-center bg-chrome-ink px-2.5 font-bbmono text-[11px] whitespace-nowrap text-white transition-opacity hover:opacity-85 cursor-pointer"
+                    >
+                      extract()
+                    </button>
+                  </span>
 
-                  <h3 className="font-brand text-xl font-medium text-chrome-ink mb-2 transition-colors">
-                    {proj.blog ? (
-                      <Link to={proj.blog} className="hover:text-chrome-green-ink inline-flex items-center gap-1.5 transition-colors">
-                        <span>{proj.title}</span>
-                        <ArrowUpRight className="size-4 opacity-0 group-hover:opacity-100 transition-opacity text-chrome-green-ink" />
-                      </Link>
-                    ) : (
-                      <span className="group-hover:text-chrome-green-ink transition-colors">{proj.title}</span>
-                    )}
-                  </h3>
+                  {/* Corner markers on hover: Top-Left (Black), Bottom-Right (Green) */}
+                  <span className="pointer-events-none absolute size-2.5 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity -top-px -left-px border-t-2 border-l-2 border-chrome-ink z-10"></span>
+                  <span className="pointer-events-none absolute size-2.5 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity -bottom-px -right-px border-b-2 border-r-2 border-chrome-green-ink z-10"></span>
 
-                  <p className="font-bbmono text-xs text-chrome-slate font-medium mb-3">
-                    {proj.headline}
-                  </p>
-
-                  <p className="text-xs text-chrome-dim leading-relaxed mb-6 font-body">
-                    {proj.description}
-                  </p>
-                </div>
-
-                <div>
-                  {/* Tech stack badges */}
-                  <div className="flex flex-wrap gap-1.5 mb-5 font-bbmono text-[10px]">
-                    {proj.tech.map((t, i) => (
-                      <span key={i} className="border px-2 py-0.5 border-chrome-edge text-chrome-dim bg-chrome-field">
-                        {t}
+                  <div className="relative z-10">
+                    <div className="flex items-center justify-between font-bbmono text-[11px] mb-3">
+                      <span className="text-chrome-green-ink font-bold lowercase">{proj.category}</span>
+                      <span className="bg-chrome-canvas text-chrome-slate px-2 py-0.5 border border-chrome-edge rounded">
+                        {proj.metrics}
                       </span>
-                    ))}
+                    </div>
+
+                    <h3 className="font-brand text-xl font-medium text-chrome-ink mb-2 transition-colors">
+                      {proj.blog ? (
+                        <Link to={proj.blog} className="hover:text-chrome-green-ink inline-flex items-center gap-1.5 transition-colors">
+                          <span>{proj.title}</span>
+                          <ArrowUpRight className="size-4 opacity-0 group-hover:opacity-100 transition-opacity text-chrome-green-ink" />
+                        </Link>
+                      ) : (
+                        <span className="group-hover:text-chrome-green-ink transition-colors">{proj.title}</span>
+                      )}
+                    </h3>
+
+                    <p className="font-bbmono text-xs text-chrome-slate font-medium mb-3">
+                      {proj.headline}
+                    </p>
+
+                    <p className="text-xs text-chrome-dim leading-relaxed mb-6 font-body">
+                      {proj.description}
+                    </p>
                   </div>
 
-                  {/* Links */}
-                  <div className="flex items-center gap-4 pt-3 border-t border-chrome-rule font-bbmono text-xs">
-                    {proj.github && (
-                      <a
-                        href={proj.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-chrome-dim hover:text-chrome-ink transition-colors"
-                      >
-                        <Github className="size-3.5" /> code
-                      </a>
-                    )}
-                    {proj.demo && (
-                      <a
-                        href={proj.demo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-chrome-dim hover:text-chrome-green-ink transition-colors"
-                      >
-                        <ExternalLink className="size-3.5" /> live demo
-                      </a>
-                    )}
-                    {proj.video && (
-                      <a
-                        href={proj.video}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-chrome-dim hover:text-chrome-ink transition-colors"
-                      >
-                        <Play className="size-3.5" /> watch
-                      </a>
-                    )}
-                    {proj.blog && (
-                      <Link
-                        to={proj.blog}
-                        className="inline-flex items-center gap-1.5 text-chrome-dim hover:text-chrome-green-ink transition-colors"
-                      >
-                        <BookOpen className="size-3.5" /> blog
-                      </Link>
-                    )}
+                  <div className="relative z-10">
+                    {/* Tech stack badges */}
+                    <div className="flex flex-wrap gap-1.5 mb-5 font-bbmono text-[10px]">
+                      {proj.tech.map((t, i) => (
+                        <span key={i} className="border px-2 py-0.5 border-chrome-edge text-chrome-dim bg-chrome-field">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Links */}
+                    <div className="flex items-center gap-4 pt-3 border-t border-chrome-rule font-bbmono text-xs">
+                      {proj.github && (
+                        <a
+                          href={proj.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-chrome-dim hover:text-chrome-ink transition-colors"
+                        >
+                          <Github className="size-3.5" /> code
+                        </a>
+                      )}
+                      {proj.demo && (
+                        <a
+                          href={proj.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-chrome-dim hover:text-chrome-green-ink transition-colors"
+                        >
+                          <ExternalLink className="size-3.5" /> live demo
+                        </a>
+                      )}
+                      {proj.video && (
+                        <a
+                          href={proj.video}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-chrome-dim hover:text-chrome-ink transition-colors"
+                        >
+                          <Play className="size-3.5" /> watch
+                        </a>
+                      )}
+                      {proj.blog && (
+                        <Link
+                          to={proj.blog}
+                          className="inline-flex items-center gap-1.5 text-chrome-dim hover:text-chrome-green-ink transition-colors"
+                        >
+                          <BookOpen className="size-3.5" /> blog
+                        </Link>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </article>
-            ))}
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
