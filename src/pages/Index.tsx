@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ExternalLink, Github, Play, ArrowUpRight } from "lucide-react";
+import { ExternalLink, Github, Play, ArrowUpRight, BookOpen } from "lucide-react";
 import { toast } from "sonner";
 import SEO from "@/components/SEO";
 import { StagehandNav } from "@/components/StagehandNav";
@@ -59,6 +59,7 @@ const Index = () => {
       demo: "https://multi-modul-rag.vercel.app/",
       video: "https://www.youtube.com/watch?v=a9Haiu-e7ZU",
       metrics: "94% Layout Accuracy · -76% Tokens",
+      blog: "/blog/1",
     },
     {
       title: "Renewal Upsell Advisor",
@@ -81,6 +82,7 @@ const Index = () => {
       demo: "https://finacal-adviser.vercel.app/",
       video: "https://www.youtube.com/watch?v=3HzlPeKsfqM",
       metrics: "5+ Years Market Backtesting · Sub-second DSL Gen",
+      blog: "/blog/5",
     },
     {
       title: "GeoSentinel Rockfall Detection",
@@ -117,7 +119,7 @@ const Index = () => {
         <section className="grid grid-cols-1 gap-12 px-6 pt-14 pb-20 sm:px-10 lg:grid-cols-[1.25fr_1fr] lg:gap-16">
           <div>
             <Link
-              to="/blogs"
+              to="/blog/1"
               className="group font-bbmono text-xs lowercase text-chrome-dim transition-colors hover:text-chrome-green-ink inline-block"
             >
               // <span className="underline decoration-chrome-mute decoration-1 underline-offset-4 transition-colors group-hover:decoration-chrome-green-ink">
@@ -212,8 +214,15 @@ const Index = () => {
                     </span>
                   </div>
 
-                  <h3 className="font-brand text-xl font-medium text-chrome-ink mb-2 group-hover:text-chrome-green-ink transition-colors">
-                    {proj.title}
+                  <h3 className="font-brand text-xl font-medium text-chrome-ink mb-2 transition-colors">
+                    {proj.blog ? (
+                      <Link to={proj.blog} className="hover:text-chrome-green-ink inline-flex items-center gap-1.5 transition-colors">
+                        <span>{proj.title}</span>
+                        <ArrowUpRight className="size-4 opacity-0 group-hover:opacity-100 transition-opacity text-chrome-green-ink" />
+                      </Link>
+                    ) : (
+                      <span className="group-hover:text-chrome-green-ink transition-colors">{proj.title}</span>
+                    )}
                   </h3>
 
                   <p className="font-bbmono text-xs text-chrome-slate font-medium mb-3">
@@ -266,6 +275,14 @@ const Index = () => {
                       >
                         <Play className="size-3.5" /> watch
                       </a>
+                    )}
+                    {proj.blog && (
+                      <Link
+                        to={proj.blog}
+                        className="inline-flex items-center gap-1.5 text-chrome-dim hover:text-chrome-green-ink transition-colors"
+                      >
+                        <BookOpen className="size-3.5" /> blog
+                      </Link>
                     )}
                   </div>
                 </div>
